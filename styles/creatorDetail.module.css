@@ -1,0 +1,82 @@
+
+/* header */
+.headerNav {
+  background-color: var(--main-bg);
+  height: 50px;
+  width: 100%;
+  box-shadow: var(--main-box-shadow);
+}
+/* core metrics */
+.coreMetrics {
+  margin-top: var(--main-margin-top);
+  background-color: var(--main-bg);
+  padding: var(--main-padding);
+  box-shadow: var(--main-box-shadow);
+}
+.coreMetricsHeader {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.coreMetricsHeader h3 {
+  margin: 0;
+  margin-right: 10px;
+  font-weight: 600;
+}
+.coreMetricsHeader p {
+  margin: 0;
+}
+
+.metricsRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+}
+.metric {
+  text-align: center;
+}
+.metric p {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  color: rgb(180, 180, 180);
+}
+.metric h1 {
+  font-size: 25px;
+  font-weight: 500;
+  line-height: 20px;
+  color: rgb(71, 71, 71);
+}
+
+/* sample video */
+.sampleVideo {
+  background-color: var(--main-bg);
+  padding: var(--main-padding);
+  box-shadow: var(--main-box-shadow);
+  margin-top: var(--main-margin-top);
+}
+.sampleVideoBody {
+  margin-top: 20px;
+  height: 300px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* performance trend */
+.performanceTrend {
+    background-color: var(--main-bg);
+    padding: var(--main-padding);
+    box-shadow: var(--main-box-shadow);
+    margin-top: var(--main-margin-top);
+  }
+  .performanceTrendBody {
+    margin-top: 20px;
+    height: 300px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }

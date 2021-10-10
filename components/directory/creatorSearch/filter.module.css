@@ -1,0 +1,10 @@
+.container{
+    padding: 2% 18%;
+    background-color: #fff;
+    box-shadow: 0 2px 5px 0 rgb(83 128 136 / 4%);
+}
+
+.filterDropdown{
+    background-color: #fff;
+    padding: 20px 30px; 
+}

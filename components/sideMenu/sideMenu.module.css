@@ -1,0 +1,38 @@
+.container {
+  padding: 15px 0;
+  background-color: #fff;
+}
+
+.navitem a {
+  font-size: 12px;
+  font-weight: 600;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 0.5px;
+  display: block;
+  text-decoration: none;
+  position: relative;
+  color: #707070;
+}
+
+.activeNavitem a {
+  color: #000;
+  font-weight: 700;
+}
+.activeNavitem a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: -25px;
+  height: 20px;
+  width: 3px;
+  transform: translateY(10%);
+  background-color: #000;
+  border-bottom-right-radius: 7px;
+  border-top-right-radius: 7px;
+}
+
+.navitem {
+  padding: 6px 25px;
+  list-style: none;
+  font-size: 1rem;
+}
