@@ -1,0 +1,45 @@
+/* header */
+.header {
+  padding: var(--main-padding);
+  background-color: var(--main-bg);
+  width: 100%;
+  box-shadow: var(--main-box-shadow);
+}
+.headerName {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+}
+.headerBottom {
+  display: flex;
+}
+.headerBottom h5 {
+  color: var(--secondary-font-color);
+  margin-right: 3%;
+}
+/* metric row */
+.metricsRow {
+  margin: 3% 0;
+  display: flex;
+  justify-content: space-between;
+}
+.metricHeaderTitle {
+  font-size: 13px;
+  color: var(--secondary-font-color);
+}
+.metricHeaderNumber {
+  font-size: 18px;
+  letter-spacing: -0.5px;
+  margin-bottom: 0;
+}
+.metricsColumnLeft {
+  flex: 2;
+  display: flex;
+}
+.metricsColumnLeft .metricsItem {
+  margin-right: 50px;
+}
+.metricsColumnRight .metricsItem {
+  margin-left: 25px;
+}

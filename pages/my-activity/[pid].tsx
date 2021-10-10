@@ -1,12 +1,13 @@
 import React from "react";
 import { useRouter } from "next/router";
 
-// widgets
+// components
 import CenterContent from "../../components/CenterContent";
 import SideMenu from "../../components/sideMenu/SideMenu";
 
 // views
 import Dashboard from "../../views/directory/myActivity/Dashboard";
+import CampaignReport from "../../views/directory/myActivity/CampaignReport";
 
 // antd
 import { Col, Row } from "antd";
@@ -34,6 +35,7 @@ export default function MyActivity() {
           </Col>
           <Col span={18}>
             {router.query["pid"] === "dashboard" && <Dashboard />}
+            {router.query["pid"] === "campaign-report" && <CampaignReport />}
           </Col>
         </Row>
       </CenterContent>

@@ -5,12 +5,13 @@ import "antd/dist/antd.css";
 
 // components
 import NavBar from "../components/navBars/NavBar";
-
+import Footer from "../components/footer/Footer";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <NavBar />
       <Component {...pageProps} />;
+      <Footer />
     </>
   );
 }

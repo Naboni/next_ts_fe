@@ -11,6 +11,7 @@ body {
   --main-box-shadow: 0 2px 5px 0 rgb(83 128 136 / 4%);
   --main-margin-top: 20px;
   --main-padding: 20px;
+  --secondary-font-color: grey;
 }
 a {
   color: inherit;

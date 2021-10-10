@@ -1,4 +1,5 @@
-import { baseUrl } from "../constants/data";
+const baseUrl = "http://localhost:3001/api";
+
 // import Cookies from "js-cookie";
 // export const currentUser = async (url: string) => {
 //   const cookie = Cookies.get("authorization");

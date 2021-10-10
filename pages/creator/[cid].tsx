@@ -4,7 +4,7 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 
 import useSWR from "swr";
-
+import { Helmet } from "react-helmet";
 // relative
 import { getCreator } from "../../backend-utils/user-utils";
 // widgets
@@ -19,7 +19,7 @@ import classes from "../../styles/creatorDetail.module.css";
 import { Row, Col, Divider } from "antd";
 
 const CreatorDetail: NextPage = () => {
-  const router = useRouter(); 
+  const router = useRouter();
 
   const { data, error } = useSWR(
     `/users/influencer/${router.query.cid}`,
@@ -27,7 +27,7 @@ const CreatorDetail: NextPage = () => {
   );
 
   const isLoading = !data && !error;
-
+  Helmet;
   // ! trigger error boundary
   if (error) {
     return <>ERRORRORORORORORORRORRRR</>;
@@ -37,7 +37,7 @@ const CreatorDetail: NextPage = () => {
     <div className="marginTop">
       <CenterContent>
         {isLoading ? (
-          <CenterLoading width={"100%"} height={"90vh"} bg={undefined}/>
+          <CenterLoading width={"100%"} height={"90vh"} bg={undefined} />
         ) : (
           <Row>
             <Col span={7}>
@@ -70,6 +70,75 @@ const CreatorDetail: NextPage = () => {
                 </div>
                 <div className={classes.sampleVideoBody}>
                   <Empty />
+                  <blockquote
+                    className="tiktok-embed"
+                    cite="https://www.tiktok.com/@mingweirocks/video/7004490297895931137"
+                    data-video-id="7004490297895931137"
+                    style={{ maxWidth: "325px" , maxHeight: "500px"}}
+                  >
+                    {" "}
+                    <section>
+                      {" "}
+                      <a
+                        target="_blank"
+                        title="@mingweirocks"
+                        href="https://www.tiktok.com/@mingweirocks"
+                      >
+                        @mingweirocks
+                      </a>{" "}
+                      <p>
+                        My dad TRIED to trick me, and… 😩{" "}
+                        <a
+                          title="funny"
+                          target="_blank"
+                          href="https://www.tiktok.com/tag/funny"
+                        >
+                          #funny
+                        </a>{" "}
+                        <a
+                          title="comedy"
+                          target="_blank"
+                          href="https://www.tiktok.com/tag/comedy"
+                        >
+                          #comedy
+                        </a>{" "}
+                        <a
+                          title="fyp"
+                          target="_blank"
+                          href="https://www.tiktok.com/tag/fyp"
+                        >
+                          #fyp
+                        </a>{" "}
+                        <a
+                          title="foryou"
+                          target="_blank"
+                          href="https://www.tiktok.com/tag/foryou"
+                        >
+                          #foryou
+                        </a>{" "}
+                        <a
+                          title="viral"
+                          target="_blank"
+                          href="https://www.tiktok.com/tag/viral"
+                        >
+                          #viral
+                        </a>
+                      </p>{" "}
+                      <a
+                        target="_blank"
+                        title="♬ original sound  - MING 🦁"
+                        href="https://www.tiktok.com/music/original-sound-MING-🦁-7004490248835173122"
+                      >
+                        ♬ original sound - MING 🦁
+                      </a>{" "}
+                    </section>{" "}
+                  </blockquote>{" "}
+                  <Helmet>
+                    <script
+                      async
+                      src="https://www.tiktok.com/embed.js"
+                    ></script>
+                  </Helmet>
                 </div>
               </div>
               {/* performance Trend */}

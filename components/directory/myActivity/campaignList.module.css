@@ -1,0 +1,6 @@
+.container {
+  margin-top: var(--main-margin-top);
+  background-color: var(--main-bg);
+  padding: var(--main-padding);
+  box-shadow: var(--main-box-shadow);
+}

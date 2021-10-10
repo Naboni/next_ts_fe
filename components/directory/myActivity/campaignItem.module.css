@@ -1,0 +1,43 @@
+.container {
+  margin-bottom: 3%;
+}
+.container:hover {
+  cursor: pointer;
+}
+.boxHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.boxHeaderRightContent h3 {
+  color: grey;
+  margin-left: 20px;
+  font-size: 10px;
+}
+.boxHeaderRightContent {
+  display: flex;
+  align-items: center;
+}
+/* metric row */
+.metricsRow {
+  display: flex;
+  justify-content: space-between;
+}
+.metricHeaderTitle {
+  font-size: 13px;
+  color: var(--secondary-font-color);
+}
+.metricHeaderNumber {
+  font-size: 18px;
+  letter-spacing: -.5px;
+  margin-bottom: 0;
+}
+.metricsColumnLeft {
+  flex: 2;
+}
+.metricsColumnLeft .metricsItem {
+  margin-right: 30px;
+}
+.metricsColumnRight .metricsItem {
+  margin-left: 50px;
+}

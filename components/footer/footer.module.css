@@ -1,0 +1,11 @@
+.footer {
+  height: 200px;
+  width: 100%;
+}
+.logo {
+  margin-right: 5%;
+  font-weight: 900;
+  font-size: large;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding-top: 7px;
+}

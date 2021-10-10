@@ -11,8 +11,9 @@ import { Button } from "antd";
 
 export default function NavBar() {
   const router = useRouter();
+
   const routes = [
-    { path: "/my-activity/dashboard", name: "My activity" },
+    { path: "/my-activity", name: "My activity" },
     { path: "/discover", name: "Discover" },
     { path: "/creators", name: "Creators" },
     { path: "/short-list", name: "Shortlist" },
@@ -22,14 +23,14 @@ export default function NavBar() {
       <h1 className={classes.logo}>FOCAL ADDIS</h1>
 
       <nav className={classes.menu}>
-        {routes.map((r) => (
+        {routes.map((r, i) => (
           <li
             key={r.path}
             className={`${classes.navitem} ${
-              router.pathname === r.path && classes.activeNavitem
+              router.pathname.startsWith(r.path) && classes.activeNavitem
             }`}
           >
-            <Link href={r.path}>
+            <Link href={`${r.path}${i === 0 ? "/dashboard" : ""}`}>
               <a className={classes.navlink}>{r.name}</a>
             </Link>
           </li>

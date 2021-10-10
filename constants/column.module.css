@@ -1,0 +1,41 @@
+.video {
+  display: flex;
+}
+.embedded {
+  border-radius: 5px;
+  object-fit: cover;
+  margin-right: 1%;
+}
+
+.avatar {
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  margin-right: 5px;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 180px;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+}
+
+.author h1 {
+  font-weight: 600;
+  font-size: medium;
+  margin: 0;
+}
+
+.meta p {
+  font-weight: 400;
+  font-size: small;
+  margin-top: 0px;
+  color: var(--secondary-font-color);
+}
