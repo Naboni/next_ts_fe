@@ -20,11 +20,15 @@
 .addShadow {
 }
 .logo {
+  color: black;
   margin-right: 5%;
   font-weight: 900;
   font-size: large;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   padding-top: 7px;
+}
+.logo:hover{
+  cursor: pointer;
 }
 .menu {
   border: none;

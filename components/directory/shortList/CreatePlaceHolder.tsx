@@ -1,4 +1,5 @@
-import React from "react";
+import React from "react";import Image from "next/image";
+
 
 // styles
 import classes from "./createPlaceHolder.module.css";
@@ -6,6 +7,8 @@ import classes from "./createPlaceHolder.module.css";
 // antd
 import { Button, Divider, Row, Col } from "antd";
 
+// relative
+import listImg from "../../../public/images/shortlist.png";
 export default function CreatePlaceHolder() {
   return (
     <div className={classes.container}>
@@ -29,13 +32,15 @@ export default function CreatePlaceHolder() {
               You can create list and enter notes for each creator. Use list to
               track potential collaborators with greater ease and efficiency.
             </p>
-            <Button type="primary" danger style={{width: '150px'}}>
+            <Button type="primary" danger style={{ width: "150px" }}>
               Create a new list
             </Button>
           </div>
         </Col>
         <Col span={16}>
-          <div className={classes.right}></div>
+          <div className={classes.right}>
+          <Image alt="" src={listImg} />
+          </div>
         </Col>
       </Row>
     </div>

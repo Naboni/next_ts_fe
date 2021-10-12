@@ -14,14 +14,15 @@ export default function NavBar() {
 
   const routes = [
     { path: "/my-activity", name: "My activity" },
-    { path: "/discover", name: "Discover" },
+    // { path: "/discover", name: "Discover" },
     { path: "/creators", name: "Creators" },
     { path: "/short-list", name: "Shortlist" },
   ];
   return (
     <header className={classes.navbar}>
-      <h1 className={classes.logo}>FOCAL ADDIS</h1>
-
+      <h1 className={classes.logo} onClick={() => router.push("/")}>
+        FOCAL ADDIS
+      </h1>
       <nav className={classes.menu}>
         {routes.map((r, i) => (
           <li

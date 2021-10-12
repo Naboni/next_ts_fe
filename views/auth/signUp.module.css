@@ -1,0 +1,24 @@
+.container {
+  width: 100%;
+  display: grid;
+  justify-items: center;
+  min-height: 80vh;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("../../public/ZsWYzLOItgeaWDSsXdZd.svg");
+}
+.wrapper {
+  width: 30%;
+}
+.header h3 {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.header p {
+  font-weight: 500;
+}
+.mssg {
+  color: var(--secondary-font-color);
+}
