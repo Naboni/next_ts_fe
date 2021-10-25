@@ -6,6 +6,9 @@ interface IProps {
   bg: string | undefined;
 }
 
+// antd
+import { Spin } from "antd";
+
 export default function CenterLoading({ width, height, bg }: IProps) {
   return (
     <div
@@ -16,9 +19,11 @@ export default function CenterLoading({ width, height, bg }: IProps) {
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: bg,
+        position: 'absolute',
+        zIndex: 100
       }}
     >
-      Loading...................................
+      <Spin />
     </div>
   );
 }

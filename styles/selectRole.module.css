@@ -1,0 +1,21 @@
+.wrapper {
+  width: 50%;
+  margin: 10% auto;
+}
+
+.content{
+    margin-top: 5%;
+}
+.header {
+  font-size: large;
+}
+
+.lable {
+  font-size: medium;
+  color: grey;
+  font-weight: 500;
+}
+
+.button{
+    float: right;
+}

@@ -1,15 +1,43 @@
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
+
+// relative
+import { signup } from "../../backend-utils/user-utils";
 // antd
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button, Checkbox, Alert } from "antd";
 // styles
 import classes from "./signUp.module.css";
 export default function SignUp() {
+  const router = useRouter();
+
+  const [loggingIn, setLoggingIn] = useState(false);
+  const [err, setErr] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
+
   const onFinish = (values: any) => {
-    console.log("Success:", values);
+    setLoggingIn(true);
+    setErr("");
+    setShowAlert(false);
+    signup(values.username, values.password, values.email)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          router.replace("/auth/signin");
+        } else {
+          setErr(data.message);
+        }
+      })
+      .catch((e) => setErr(e.message))
+      .finally(() => setLoggingIn(false));
   };
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-  };
+  const onFinishFailed = (errorInfo: any) => {};
+
+  useEffect(() => {
+    if (err != "") {
+      setShowAlert(true);
+    }
+  }, [err]);
 
   return (
     <div className={classes.container}>
@@ -106,18 +134,24 @@ export default function SignUp() {
 
           <Form.Item name="sendMail" valuePropName="checked">
             <Checkbox className={classes.mssg}>
-              Focaladdis may send you emails and messages with news, events,
+              Digital may send you emails and messages with news, events,
               promotional information, and updates. You may opt out at any time
               in your user settings.
             </Checkbox>
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" style={{ width: "100%" }}>
+            <Button
+              loading={loggingIn}
+              type="primary"
+              htmlType="submit"
+              style={{ width: "100%" }}
+            >
               Sign up
             </Button>
           </Form.Item>
         </Form>
+        {showAlert && <Alert message={err} type="error" />}
       </div>
     </div>
   );

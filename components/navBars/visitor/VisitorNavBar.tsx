@@ -15,7 +15,7 @@ export default function VisitorNavBar() {
   return (
     <header className={classes.navbar}>
       <h1 className={classes.logo} onClick={() => router.push("/")}>
-        FOCAL ADDIS
+        DIGITAL 
       </h1>
       <div className={classes.toRight}>
         <Button

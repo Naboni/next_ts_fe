@@ -21,7 +21,7 @@ export default function NavBar() {
   return (
     <header className={classes.navbar}>
       <h1 className={classes.logo} onClick={() => router.push("/")}>
-        FOCAL ADDIS
+        DIGITAL 
       </h1>
       <nav className={classes.menu}>
         {routes.map((r, i) => (
