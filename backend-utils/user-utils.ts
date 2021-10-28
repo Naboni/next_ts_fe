@@ -33,4 +33,24 @@ const currentUser = async () => {
   return response;
 };
 
-export { signup, signin, currentUser };
+const submitRole = async (
+  role: string,
+  problem: string,
+  collaboration: string
+) => {
+  const response = await fetch(`${baseUrl}/user/submit-role`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-access-token": document.cookie.split("=")[1],
+    },
+    body: JSON.stringify({
+      role,
+      problem,
+      collaboration,
+    }),
+  });
+  return response;
+};
+
+export { signup, signin, currentUser, submitRole };

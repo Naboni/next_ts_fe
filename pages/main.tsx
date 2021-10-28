@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 
 // relative
@@ -9,7 +9,6 @@ import CenterLoading from "../components/CenterLoading";
 
 export default function main() {
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
   useEffect(() => {
     currentUser()
       .then((res) => res.json())
