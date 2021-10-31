@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { signIn as si } from "next-auth/client";
 import Link from "next/link";
 
 import Cookies from "js-cookie";
@@ -22,21 +23,18 @@ export default function signIn() {
     setLoggingIn(true);
     setErr("");
     setShowAlert(false);
-    signin(values.email, values.password)
-      .then((res) => res.json())
+    si("credentials", {
+      redirect: false,
+      email: values.email,
+      password: values.password,
+    })
       .then((data) => {
-        if (data.success) {
-          Cookies.set("x-access-token", data.accessToken);
-
-          // router.replace("/auth/signin");
-        } else {
-          setErr(data.message);
-        }
+        if (data?.error) setErr(data.error);
+        else router.replace('/main');
       })
       .catch((e) => setErr(e.message))
       .finally(() => setLoggingIn(false));
   };
-  const onFinishFailed = (errorInfo: any) => {};
 
   useEffect(() => {
     if (err != "") {
@@ -62,7 +60,6 @@ export default function signIn() {
           layout="vertical"
           initialValues={{ sendMail: true }}
           onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
           <Form.Item
