@@ -1,8 +1,9 @@
-import NextAuth from "next-auth";
+import NextAuth, { Session, User } from "next-auth";
 import Providers from "next-auth/providers";
 
-// relative
-import { signin } from "../../../backend-utils/user-utils";
+import { verify } from "../../../lib/auth";
+import { prisma } from "../../../lib/prisma";
+const { user } = prisma;
 
 // ! the handler function is exported when NextAuth is invoked
 export default NextAuth({
@@ -12,17 +13,28 @@ export default NextAuth({
   providers: [
     Providers.Credentials({
       async authorize(credentials: any) {
-        const res = await signin(credentials.email, credentials.password);
-        const data = await res.json();
-        if (res.ok && data.user) return data.user;
-        throw new Error(data.message);
+        const resUser = await user.findUnique({
+          where: {
+            email: credentials.email,
+          },
+        });
+        if (!resUser) throw new Error("Invalid credentials");
+        var passwordIsValid = await verify(
+          credentials.password,
+          resUser.password
+        );
+        if (!passwordIsValid) throw new Error("Invalid credentials");
+
+        return { ...resUser, id: null, password: null };
       },
     }),
   ],
   callbacks: {
-    async jwt(token, user, account, profile, isNewUser) {
-      console.log(user);
-
+    async session(session, user) {
+      return { user: user.user } as Session;
+    },
+    async jwt(token, user) {
+      user && (token.user = user);
       return token;
     },
   },

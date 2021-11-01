@@ -3,10 +3,6 @@ import { useRouter } from "next/router";
 import { signIn as si } from "next-auth/client";
 import Link from "next/link";
 
-import Cookies from "js-cookie";
-// relative
-import { signin } from "../../backend-utils/user-utils";
-
 // antd
 import { Form, Input, Button, Alert } from "antd";
 // styles
@@ -30,7 +26,7 @@ export default function signIn() {
     })
       .then((data) => {
         if (data?.error) setErr(data.error);
-        else router.replace('/main');
+        else router.replace("/main");
       })
       .catch((e) => setErr(e.message))
       .finally(() => setLoggingIn(false));

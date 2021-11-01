@@ -5,7 +5,7 @@ import Link from "next/link";
 // relative
 import { signup } from "../../backend-utils/user-utils";
 // antd
-import { Form, Input, Button, Checkbox, Alert } from "antd";
+import { Form, Input, Button, Checkbox, Alert, Radio } from "antd";
 // styles
 import classes from "./signUp.module.css";
 export default function SignUp() {
@@ -15,11 +15,21 @@ export default function SignUp() {
   const [err, setErr] = useState("");
   const [showAlert, setShowAlert] = useState(false);
 
+  // ! Radio state
+  const options = [
+    { label: "Brand", value: "BRAND" },
+    { label: "CREATOR", value: "CREATOR" },
+  ];
+  const [value, setValue] = useState("BRAND");
+  const onChange = (e: any) => {
+    setValue(e.target.value);
+  };
+
   const onFinish = (values: any) => {
     setLoggingIn(true);
     setErr("");
     setShowAlert(false);
-    signup(values.username, values.password, values.email)
+    signup(values.username, values.password, values.email, value)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -60,6 +70,15 @@ export default function SignUp() {
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
+          <Form.Item label="What do you represent?" required={true}>
+            <Radio.Group
+              options={options}
+              onChange={onChange}
+              value={value}
+              optionType="button"
+            />
+          </Form.Item>
+
           <Form.Item
             label="Email"
             name="email"

@@ -8,7 +8,7 @@ export default function Footer() {
     <CenterContent>
       <footer className={classes.footer}>
         <div></div>
-        <h1 className={classes.logo}>FOCAL ADDIS</h1>
+        <h1 className={classes.logo}>DIGITAL</h1>
       </footer>
     </CenterContent>
   );

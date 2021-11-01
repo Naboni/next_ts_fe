@@ -1,37 +1,25 @@
 const baseUrl = "http://localhost:3005/api/v1";
 
-const signup = async (username: string, password: string, email: string) => {
-  const response = await fetch(`${baseUrl}/auth/signup`, {
+const signup = async (
+  username: string,
+  password: string,
+  email: string,
+  role: string
+) => {
+  const response = await fetch(`/api/auth/signup`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       username,
       password,
       email,
+      role,
     }),
   });
   return response;
 };
 
-const signin = async (email: string, password: string) => {
-  const response = await fetch(`${baseUrl}/auth/signin`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      email,
-      password,
-    }),
-  });
-  return response;
-};
-
-const currentUser = async () => {
-  const response = await fetch(`${baseUrl}/user/current-user`, {
-    method: "GET",
-    headers: { "x-access-token": document.cookie.split("=")[1] },
-  });
-  return response;
-};
+// ! signIn inside [...nextauth].tsx
 
 const submitRole = async (
   role: string,
@@ -53,4 +41,4 @@ const submitRole = async (
   return response;
 };
 
-export { signup, signin, currentUser, submitRole };
+export { signup, submitRole };

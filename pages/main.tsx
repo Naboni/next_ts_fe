@@ -1,28 +1,53 @@
 import React, { useEffect } from "react";
-import { useRouter } from "next/router";
 
-// relative
-import { currentUser } from "../backend-utils/user-utils";
+import { GetServerSideProps } from "next";
+import { Session } from "next-auth";
+
+import { useRouter } from "next/router";
+import { getSession } from "next-auth/client";
 
 // components
 import CenterLoading from "../components/CenterLoading";
 
-export default function main() {
+interface User {
+  id: null;
+  username: string;
+  email: string;
+  password: null;
+  createdAt: string;
+  updatedAt: string;
+  role: string;
+}
+export default function main({ session }: { session: Session }) {
+  const user = session.user as User;
   const router = useRouter();
-  useEffect(() => {
-    currentUser()
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          console.log(data);
 
-          router.replace("/selectRole");
-        } else {
-          router.replace("/auth/signin");
-        }
-      })
-      .catch((error) => console.log(error));
+  useEffect(() => {
+    // ! handle this case seriously !!!!!!!!!!!!!!!!!!!!!!!!!
+    if (user.role === "VISITOR") {
+      router.replace("/404");
+    } else if (user.role === "BRAND") {
+      router.replace("/my-activity/dashboard");
+    } else if (user.role === "CREATOR") {
+    } else if (user.role === "ADMIN") {
+    } else if (user.role === "DEV") {
+    } else router.replace("/404");
   }, []);
 
   return <CenterLoading height="100vh" width="100vw" bg="white" />;
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: { session },
+  };
+};
