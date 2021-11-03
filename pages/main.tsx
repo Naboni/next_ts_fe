@@ -29,6 +29,7 @@ export default function main({ session }: { session: Session }) {
     } else if (user.role === "BRAND") {
       router.replace("/my-activity/dashboard");
     } else if (user.role === "CREATOR") {
+      router.replace("/my-activity");
     } else if (user.role === "ADMIN") {
     } else if (user.role === "DEV") {
     } else router.replace("/404");

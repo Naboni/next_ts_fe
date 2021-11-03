@@ -1,0 +1,32 @@
+.container {
+  width: 100%;
+  background-color: #fff;
+  box-shadow: var(--main-box-shadow);
+  padding: 15px 20px;
+}
+.header h4 {
+  margin: 0;
+  font-size: medium;
+}
+
+.header p {
+  color: rgb(180, 179, 179);
+  font-weight: 400;
+}
+
+.form_container {
+  margin-left: 3%;
+}
+
+.form {
+  display: flex;
+}
+.form_inputs {
+  width: 40%;
+}
+
+.form p {
+  font-weight: 500;
+  white-space: nowrap;
+  width: 10%;
+}

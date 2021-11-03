@@ -47,8 +47,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         });
       });
   } catch (error) {
-    console.log(error);
-
     res.status(400).send({ message: "Invalid inputs!", error });
   }
 };

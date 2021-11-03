@@ -8,14 +8,16 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  username  String   @unique @db.VarChar(255)
-  email     String   @unique @db.VarChar(255)
-  password  String   @db.VarChar(255)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  role      Role     @default(VISITOR)
+  id         String   @id @default(uuid())
+  username   String   @unique @db.VarChar(255)
+  email      String   @unique @db.VarChar(255)
+  password   String   @db.VarChar(255)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  role       Role     @default(VISITOR)
+  isVerified Boolean  @default(false)
 
+  campaigns Campaign[]
   @@map("user")
 }
 
@@ -25,4 +27,41 @@ enum Role {
   CREATOR
   ADMIN
   DEV
+}
+
+model Campaign {
+  id            String @id @default(uuid())
+  brandIndustry String @db.VarChar(50)
+  brandName     String @db.VarChar(50)
+  brandWebsite  String @db.VarChar(50)
+  productName   String @db.VarChar(50)
+
+  campaignDuration  String[]
+  campaignGoal      String   @db.VarChar(50)
+  campaignName      String   @db.VarChar(50)
+  campaignPrice     String   @db.VarChar(10)
+  campaignPriceType String   @db.VarChar(5)
+  negotiationType   String   @db.VarChar(1)
+  message           String   @db.VarChar(800)
+
+  contactName      String @db.VarChar(50)
+  email            String @db.VarChar(100)
+  phone            String @db.VarChar(15)
+  otherSocialMedia Json[]
+
+  totalViews            Int      @default(0)
+  totalLikes            Int      @default(0)
+  totalComments         Int      @default(0)
+  totalShares           Int      @default(0)
+  averageEngagementRate Int      @default(0)
+  videos                String[]
+  creators              String[]
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("campaign")
 }

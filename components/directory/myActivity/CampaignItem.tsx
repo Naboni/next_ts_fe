@@ -6,16 +6,16 @@ import { Divider, Space } from "antd";
 import classes from "./campaignItem.module.css";
 interface IProps {
   data: {
-    campaignId: number;
-    creationTime: string;
-    campaignTitle: string;
+    id: number;
+    campaignName: string;
     totalViews: number;
     totalLikes: number;
     totalComments: number;
     totalShares: number;
     averageEngagementRate: number;
-    numberOfVideos: number;
-    numberOfCreators: number;
+    videos: String[];
+    creators: String[];
+    createdAt: string;
   };
 }
 export default function CampaignItem({ data }: IProps) {
@@ -23,13 +23,13 @@ export default function CampaignItem({ data }: IProps) {
   return (
     <div
       className={classes.container}
-      onClick={() => router.push(`/campaign/${data.campaignId}`)}
+      onClick={() => router.push(`/campaign/${data.id}`)}
     >
       <div className={classes.boxHeader}>
-        <h4>{data.campaignTitle}</h4>
+        <h4>{data.campaignName}</h4>
         <div className={classes.boxHeaderRightContent}>
-          <h3>{`Campaign ID: ${data.campaignId}`}</h3>
-          <h3>{`${data.creationTime}`}</h3>
+          <h3>{`Campaign ID: ${data.id}`}</h3>
+          <h3>{`${data.createdAt}`}</h3>
         </div>
       </div>
       <Divider style={{ marginTop: "5px", marginBottom: "10px" }} />
@@ -88,7 +88,7 @@ export default function CampaignItem({ data }: IProps) {
               className={classes.metricsItem}
             >
               <h1 className={classes.metricHeaderNumber}>
-                {data.numberOfVideos}
+                {data.videos.length}
               </h1>
               <h2 className={classes.metricHeaderTitle}>Number of videos</h2>
             </Space>
@@ -100,7 +100,7 @@ export default function CampaignItem({ data }: IProps) {
               className={classes.metricsItem}
             >
               <h1 className={classes.metricHeaderNumber}>
-                {data.numberOfCreators}
+                {data.creators.length}
               </h1>
               <h2 className={classes.metricHeaderTitle}>Number of creators</h2>
             </Space>

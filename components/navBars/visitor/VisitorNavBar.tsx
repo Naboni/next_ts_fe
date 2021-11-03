@@ -1,5 +1,6 @@
 import React from "react";
 import { useSession, signOut } from "next-auth/client";
+import { IoMdNotificationsOutline } from "react-icons/io";
 
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -64,10 +65,26 @@ export default function VisitorNavBar() {
           ))}
         </nav>
       )}
+      {/* components floating to the right */}
       <div className={classes.toRight}>
+        {session && (session.user as User).role === Roles.BRAND && (
+          <Button
+            type="primary"
+            danger
+            className={classes.createCampaign}
+            onClick={() => router.push("/campaign/create")}
+          >
+            Create campaign
+          </Button>
+        )}
         {/*  */}
         {session && (
-          <Profile user={session.user} logoutHandler={logoutHandler} />
+          <>
+            {/* <div style={{border: "1px solid grey", borderRadius: "50%", padding: "3px 7px", marginLeft:'5px'}}> */}
+              {/* <IoMdNotificationsOutline /> */}
+            {/* </div> */}
+            <Profile user={session.user} logoutHandler={logoutHandler} />
+          </>
         )}
 
         {/* show auth btns only if there is no session */}

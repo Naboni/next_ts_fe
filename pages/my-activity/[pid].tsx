@@ -19,11 +19,11 @@ export default function MyActivity() {
       name: "Campaign Management",
       query: "campaign-management",
     },
-    {
-      path: "/my-activity/campaign-report",
-      name: "Campaign Reporting",
-      query: "campaign-report",
-    },
+    // {
+    //   path: "/my-activity/campaign-report",
+    //   name: "Campaign Reporting",
+    //   query: "campaign-report",
+    // },
   ];
   return (
     <div className="marginTop">
@@ -34,7 +34,9 @@ export default function MyActivity() {
           </Col>
           <Col span={18}>
             {router.query["pid"] === "dashboard" && <Dashboard />}
-            {router.query["pid"] === "campaign-report" && <CampaignReport />}
+            {router.query["pid"] === "campaign-management" && (
+              <CampaignReport />
+            )}
           </Col>
         </Row>
       </CenterContent>

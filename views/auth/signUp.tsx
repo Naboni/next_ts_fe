@@ -59,7 +59,7 @@ export default function SignUp() {
             <Link href="/auth/signin">
               <a>Log in</a>
             </Link>{" "}
-            to Focaladdis
+            to Digital
           </p>
         </div>
         <br />

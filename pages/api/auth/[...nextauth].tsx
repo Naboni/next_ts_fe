@@ -24,8 +24,7 @@ export default NextAuth({
           resUser.password
         );
         if (!passwordIsValid) throw new Error("Invalid credentials");
-
-        return { ...resUser, id: null, password: null };
+        return { ...resUser, password: null };
       },
     }),
   ],
