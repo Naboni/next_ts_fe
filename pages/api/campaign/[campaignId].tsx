@@ -19,11 +19,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const user = session.user;
+  const campaignId = req.query.campaignId as string;
 
   try {
     const result = await campaign.findUnique({
       where: {
-        id: "fda956ca-308c-4956-b606-b5d4519ea312",
+        id: campaignId,
       },
     });
 

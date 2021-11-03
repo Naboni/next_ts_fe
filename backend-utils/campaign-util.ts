@@ -41,8 +41,8 @@ const createCampaign = async (
   return response;
 };
 
-const getCampaignById = async () => {
-  const response = await fetch(`/api/campaign/get-campaignById`);
+const getCampaignById = async (id: string) => {
+  const response = await fetch(`/api/campaign/${id}`);
   return response;
 };
 

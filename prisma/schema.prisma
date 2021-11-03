@@ -30,7 +30,9 @@ enum Role {
 }
 
 model Campaign {
-  id            String @id @default(uuid())
+  id     String @id @default(uuid())
+  status Status @default(ACTIVE)
+
   brandIndustry String @db.VarChar(50)
   brandName     String @db.VarChar(50)
   brandWebsite  String @db.VarChar(50)
@@ -64,4 +66,11 @@ model Campaign {
   updatedAt DateTime @updatedAt
 
   @@map("campaign")
+}
+
+enum Status {
+  ACTIVE
+  PENDING
+  COMPLETED
+  CANCELED
 }

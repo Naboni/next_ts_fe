@@ -1,180 +1,141 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { useRouter } from "next/router";
 
-import { BsInfoCircle } from "react-icons/bs";
-import { BsPlay } from "react-icons/bs";
-import { FiHeart } from "react-icons/fi";
-import { FaRegCommentDots } from "react-icons/fa";
-import { TiArrowForwardOutline } from "react-icons/ti";
-import { FiRefreshCw } from "react-icons/fi";
-import { AiOutlineVideoCamera } from "react-icons/ai";
-import { BsPersonCheck } from "react-icons/bs";
-
 // antd
-import { Tabs, Space, Divider } from "antd";
+import { Tabs } from "antd";
 const { TabPane } = Tabs;
 
 // components
 import CenterContent from "../../components/CenterContent";
+import CenterLoading from "../../components/CenterLoading";
+
+import Header from "../../components/directory/myActivity/campaignDetail/Header";
+import MainBody from "../../components/directory/myActivity/campaignDetail/MainBody";
+import Creators from "../../components/directory/myActivity/campaignDetail/Creators";
+import Progress from "../../components/directory/myActivity/campaignDetail/Progress";
 import CampaignVideoList from "../../components/directory/myActivity/CampaignVideoList";
+import Calendar from "../../components/directory/myActivity/campaignDetail/Calendar";
+import Reporting from "../../components/directory/myActivity/campaignDetail/Reporting";
+import Payments from "../../components/directory/myActivity/campaignDetail/Payments";
+
 // styles
 import classes from "../../styles/campaignDetail.module.css";
+
+// relative
+import { getCampaignById } from "../../backend-utils/campaign-util";
+
 export default function CampaignDetails() {
-  const data = {
-    campaignId: 10,
-    creationTime: "9/21/2021",
-    campaignTitle: "Account Executive",
-    totalViews: 841,
-    totalLikes: 828,
-    totalComments: 800,
-    totalShares: 104,
-    averageEngagementRate: 51.73,
-    numberOfVideos: 2,
-    numberOfCreators: 7,
-  };
-  // ! query for search
-  //   const router = useRouter();
-  //   console.log(router.query);
+  const router = useRouter();
+  let campaignId = router.query?.cid as string;
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState<any>();
+
+  useEffect(() => {
+    if (campaignId) {
+      getCampaignById(campaignId)
+        .then((res) => res.json())
+        .then((data) => {
+          setData(data);
+        })
+        .catch((e) => console.log(e));
+    }
+  }, [campaignId]);
+
+  useEffect(() => {
+    if (data) setIsLoading(false);
+  }, [data]);
 
   function callback(key: any) {
     // console.log(key);
   }
+
+  if (isLoading) {
+    return <CenterLoading width="100%" height="50vh" bg="transparent" />;
+  }
+
+  // const datsa = {
+  //   brandIndustry: "jack"
+  //   brandName: "Barclays"
+  //   brandWebsite: "www.barcelona.com"
+
+  //   campaignDuration: (2) ['2021-11-11', '2021-12-23']
+  //   campaignGoal: "lucy"
+  //   campaignName: "Promote Barcelona's new T-Shirt"
+  //   campaignPrice: "10000"
+  //   campaignPriceType: "birr"
+  //   createdAt: "2021-11-03T11:53:25.546Z"
+  //   creators: []
+
+  //   contactName: "Yonatan Merkebu"
+  //   email: "se.yonatan.merkebu@gmail.com"
+  //   id: "22cf24a5-57fb-400d-9e41-d3d0fe28f626"
+  //   message: "We are delighted to announce that we brought a whole new design to our team's T-Shit. Come and shop from out store at shop.barcelona.com"
+  //   negotiationType: "2"
+  //   otherSocialMedia: [{…}]
+  //   phone: "967657294"
+  //   productName: "New  T-Shirt"
+  //   totalComments: 0
+  //   averageEngagementRate: 0
+  //   totalLikes: 0
+  //   totalShares: 0
+  //   totalViews: 0
+  //   updatedAt: "2021-11-03T11:53:25.546Z"
+  //   userId: "1989008e-24e5-4ac4-b9f4-b9d014425dcd"
+  //   videos: []
+
+  // };
+
   return (
     <div className="marginTop">
       <CenterContent>
-        <header className={classes.header}>
-          <div className={classes.headerName}>
-            <h3>Campaign Reporting</h3>
-            <h6>
-              Updated as of {data.creationTime}. {<BsInfoCircle />}Data is
-              updated daily
-            </h6>
-          </div>
-          <div className={classes.headerBottom}>
-            <h5>Campaign title: {data.campaignTitle}</h5>
-            <h5>Campaign ID: {data.campaignId}</h5>
-            <h5>Creation time: {data.creationTime}</h5>
-          </div>
-          <div className={classes.metricsRow}>
-            <div className={classes.metricsColumnLeft}>
-              <Space size="middle">
-                <BsPlay
-                  style={{ height: "35px", width: "35px", color: "#23dada" }}
+        <>
+          <Header campaignName={data.campaignName} />
+          <header className={classes.header}>
+            <MainBody
+              campaignId={data.id}
+              campaignTitle={data.campaignName}
+              creationTime={data.createdAt}
+              status={data.status}
+            />
+
+            <br />
+            <Tabs defaultActiveKey="1" onChange={callback}>
+              <TabPane tab="Creators" key="1">
+                <Creators creators={data.creators} />
+              </TabPane>
+
+              <TabPane tab="Progress" key="2">
+                <Progress />
+              </TabPane>
+
+              <TabPane tab="Videos" key="3">
+                <CampaignVideoList />
+              </TabPane>
+
+              <TabPane tab="Calendar" key="4">
+                <Calendar />
+              </TabPane>
+
+              <TabPane tab="Reporting" key="5">
+                <Reporting
+                  numberOfCreators={data.creators}
+                  numberOfVideos={data.videos}
+                  averageEngagementRate={data.averageEngagementRate}
+                  totalComments={data.totalComments}
+                  totalLikes={data.totalLikes}
+                  totalShares={data.totalShares}
+                  totalViews={data.totalViews}
                 />
-                <Space
-                  direction="vertical"
-                  size="small"
-                  className={classes.metricsItem}
-                >
-                  <h1 className={classes.metricHeaderNumber}>
-                    {data.totalViews}
-                  </h1>
-                  <h2 className={classes.metricHeaderTitle}>Total views</h2>
-                </Space>
-              </Space>
-              <Space size="middle">
-                <FiHeart
-                  style={{ height: "25px", width: "25px", color: "#ff4b4b" }}
-                />
-                <Space
-                  direction="vertical"
-                  size="small"
-                  className={classes.metricsItem}
-                >
-                  <h1 className={classes.metricHeaderNumber}>
-                    {data.totalLikes}
-                  </h1>
-                  <h2 className={classes.metricHeaderTitle}>Likes</h2>
-                </Space>
-              </Space>
-              <Space size="middle">
-                <FaRegCommentDots
-                  style={{ height: "25px", width: "25px", color: "#6161ee" }}
-                />
-                <Space
-                  direction="vertical"
-                  size="small"
-                  className={classes.metricsItem}
-                >
-                  <h1 className={classes.metricHeaderNumber}>
-                    {data.totalComments}
-                  </h1>
-                  <h2 className={classes.metricHeaderTitle}>Comment</h2>
-                </Space>
-              </Space>
-              <Space size="middle">
-                <TiArrowForwardOutline
-                  style={{ height: "30px", width: "30px", color: "#f9c646" }}
-                />
-                <Space
-                  direction="vertical"
-                  size="small"
-                  className={classes.metricsItem}
-                >
-                  <h1 className={classes.metricHeaderNumber}>
-                    {data.totalShares}
-                  </h1>
-                  <h2 className={classes.metricHeaderTitle}>Share</h2>
-                </Space>
-              </Space>
-              <Space size="middle">
-                <FiRefreshCw
-                  style={{ height: "25px", width: "25px", color: "#6161ee" }}
-                />
-                <Space
-                  direction="vertical"
-                  size="small"
-                  className={classes.metricsItem}
-                >
-                  <h1 className={classes.metricHeaderNumber}>
-                    {data.averageEngagementRate} %
-                  </h1>
-                  <h2 className={classes.metricHeaderTitle}>
-                    Average engagement rate
-                  </h2>
-                </Space>
-              </Space>
-            </div>
-            <Divider type="vertical" style={{ height: "70px" }} />
-            <div className={classes.metricsColumnRight}>
-              <Space className={classes.metricsItem} size="middle">
-                <AiOutlineVideoCamera
-                  style={{ height: "25px", width: "25px", color: "#9b9ba5" }}
-                />
-                <Space direction="vertical" size="small">
-                  <h1 className={classes.metricHeaderNumber}>
-                    {data.numberOfVideos}
-                  </h1>
-                  <h2 className={classes.metricHeaderTitle}>
-                    Number of videos
-                  </h2>
-                </Space>
-              </Space>
-              <Space className={classes.metricsItem} size="middle">
-                <BsPersonCheck
-                  style={{ height: "25px", width: "25px", color: "#9b9ba5" }}
-                />
-                <Space direction="vertical" size="small">
-                  <h1 className={classes.metricHeaderNumber}>
-                    {data.numberOfCreators}
-                  </h1>
-                  <h2 className={classes.metricHeaderTitle}>
-                    Number of creators
-                  </h2>
-                </Space>
-              </Space>
-            </div>
-          </div>
-          <Tabs defaultActiveKey="1" onChange={callback}>
-            <TabPane tab="Videos" key="1">
-              <CampaignVideoList />
-            </TabPane>
-            <TabPane tab="Creators" key="2">
-              ctors
-            </TabPane>
-          </Tabs>
-        </header>
+              </TabPane>
+
+              <TabPane tab="Payments" key="6">
+                <Payments />
+              </TabPane>
+            </Tabs>
+          </header>
+        </>
       </CenterContent>
     </div>
   );

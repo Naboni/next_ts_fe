@@ -21,8 +21,22 @@ a {
 * {
   box-sizing: border-box;
 }
-.marginTop{
+.marginTop {
   padding: 3% 0;
   min-height: 80vh;
   background-color: #f2f3f7;
+}
+
+/* campaign status badges */
+.ACTIVE {
+  background-color: rgb(27, 250, 94);
+}
+.PENDING {
+  background-color: rgb(247, 222, 0);
+}
+.COMPLETED {
+  background-color: rgb(55, 0, 255);
+}
+.CANCELED {
+  background-color: rgb(255, 0, 128);
 }
