@@ -28,7 +28,7 @@ export default function signIn() {
         if (data?.error) setErr(data.error);
         else router.replace("/main");
       })
-      .catch((e) => setErr(e.message))
+      .catch((e: any) => setErr(e.message))
       .finally(() => setLoggingIn(false));
   };
 

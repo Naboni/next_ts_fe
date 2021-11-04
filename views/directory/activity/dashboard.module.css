@@ -1,0 +1,10 @@
+/* header */
+.header {
+  padding: var(--main-padding);
+  background-color: var(--main-bg);
+  width: 100%;
+  /* box-shadow: var(--main-box-shadow); */
+}
+.headerName{
+  font-weight: 600;
+}

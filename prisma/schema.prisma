@@ -18,6 +18,8 @@ model User {
   isVerified Boolean  @default(false)
 
   campaigns Campaign[]
+  claims    Claim[]
+
   @@map("user")
 }
 
@@ -73,4 +75,18 @@ enum Status {
   PENDING
   COMPLETED
   CANCELED
+}
+
+model Claim {
+  id String @id @default(uuid())
+
+  pasteCode    String @db.VarChar(255)
+  tiktokHandle String @db.VarChar(255)
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@map("claim")
 }

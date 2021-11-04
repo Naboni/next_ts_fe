@@ -14,7 +14,7 @@ export default function ProfileDropDown({ user, logoutHandler }: any) {
 
   function handleMenuClick(e: any) {
     if (e.key == 1) {
-      router.push("/profile");
+      router.push("/settings");
     }
     if (e.key == 5) {
       logoutHandler();
@@ -23,7 +23,7 @@ export default function ProfileDropDown({ user, logoutHandler }: any) {
 
   const menu = (
     <Menu onClick={handleMenuClick}>
-      <Menu.Item key="1">Profile</Menu.Item>
+      <Menu.Item key="1">Settings</Menu.Item>
       <Menu.Item key="5">Logout</Menu.Item>
     </Menu>
   );

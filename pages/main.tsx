@@ -29,7 +29,7 @@ export default function main({ session }: { session: Session }) {
     } else if (user.role === "BRAND") {
       router.replace("/my-activity/dashboard");
     } else if (user.role === "CREATOR") {
-      router.replace("/my-activity");
+      router.replace("/activity/dashboard");
     } else if (user.role === "ADMIN") {
     } else if (user.role === "DEV") {
     } else router.replace("/404");
@@ -43,7 +43,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (!session) {
     return {
       redirect: {
-        destination: "/",
+        destination: "/auth/signin",
         permanent: false,
       },
     };

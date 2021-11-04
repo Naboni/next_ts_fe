@@ -44,6 +44,12 @@ export default function VisitorNavBar() {
     { path: "/short-list", name: "Shortlist" },
   ];
 
+  const creatorRoutes = [
+    { path: "/activity", name: "My activity" },
+    { path: "/profile", name: "Profile" },
+    { path: "/learn", name: "Learn" },
+  ];
+
   return (
     <header className={classes.navbar}>
       <h1 className={classes.logo} onClick={() => router.push("/")}>
@@ -65,6 +71,24 @@ export default function VisitorNavBar() {
           ))}
         </nav>
       )}
+
+      {session && (session.user as User).role === Roles.CREATOR && (
+        <nav className={classes.menu}>
+          {creatorRoutes.map((r, i) => (
+            <li
+              key={r.path}
+              className={`${classes.navitem} ${
+                router.pathname.startsWith(r.path) && classes.activeNavitem
+              }`}
+            >
+              <Link href={`${r.path}${i === 0 ? "/dashboard" : ""}`}>
+                <a className={classes.navlink}>{r.name}</a>
+              </Link>
+            </li>
+          ))}
+        </nav>
+      )}
+      
       {/* components floating to the right */}
       <div className={classes.toRight}>
         {session && (session.user as User).role === Roles.BRAND && (
@@ -81,7 +105,7 @@ export default function VisitorNavBar() {
         {session && (
           <>
             {/* <div style={{border: "1px solid grey", borderRadius: "50%", padding: "3px 7px", marginLeft:'5px'}}> */}
-              {/* <IoMdNotificationsOutline /> */}
+            {/* <IoMdNotificationsOutline /> */}
             {/* </div> */}
             <Profile user={session.user} logoutHandler={logoutHandler} />
           </>
