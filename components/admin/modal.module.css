@@ -1,0 +1,18 @@
+.flex {
+  display: flex;
+  align-items: center;
+}
+.flex h3 {
+  margin: 0;
+}
+.flex h4 {
+    font-weight: 400;
+  margin: 5px;
+  margin-bottom: 0;
+}
+.handle {
+  width: fit-content;
+  border: 1px dashed rgb(175, 175, 175);
+  padding: 0px 15px;
+  margin: 0;
+}

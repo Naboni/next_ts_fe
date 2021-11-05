@@ -8,14 +8,15 @@ datasource db {
 }
 
 model User {
-  id         String   @id @default(uuid())
-  username   String   @unique @db.VarChar(255)
-  email      String   @unique @db.VarChar(255)
-  password   String   @db.VarChar(255)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  role       Role     @default(VISITOR)
-  isVerified Boolean  @default(false)
+  id        String   @id @default(uuid())
+  username  String   @unique @db.VarChar(255)
+  email     String   @unique @db.VarChar(255)
+  password  String   @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  role      Role     @default(VISITOR)
+
+  profileVerification Pv @default(INITIAL)
 
   campaigns Campaign[]
   claims    Claim[]
@@ -29,6 +30,13 @@ enum Role {
   CREATOR
   ADMIN
   DEV
+}
+
+enum Pv {
+  INITIAL
+  APPROVED
+  PENDING
+  REJECTED
 }
 
 model Campaign {

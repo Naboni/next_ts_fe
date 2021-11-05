@@ -31,6 +31,7 @@ export default function main({ session }: { session: Session }) {
     } else if (user.role === "CREATOR") {
       router.replace("/activity/dashboard");
     } else if (user.role === "ADMIN") {
+      router.replace("/admin");
     } else if (user.role === "DEV") {
     } else router.replace("/404");
   }, []);

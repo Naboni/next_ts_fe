@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../../lib/prisma";
 import { hashPassword } from "../../../lib/auth";
+import { Roles } from "../../../constants/roles";
 
 const { user } = prisma;
 
@@ -28,6 +29,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(400).json({
         success: false,
         message: "Email already taken.",
+      });
+    }
+
+    if (role === Roles.ADMIN || role === Roles.DEV) {
+      return res.status(400).json({
+        success: false,
+        message: "Bad Request.",
       });
     }
     user

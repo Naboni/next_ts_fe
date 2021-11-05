@@ -50,6 +50,11 @@ export default function VisitorNavBar() {
     { path: "/learn", name: "Learn" },
   ];
 
+  const adminRoutes = [
+    { path: "/admin ", name: "Dashboard" },
+    { path: "/admin/profile-claims", name: "Profile claims" },
+  ];
+
   return (
     <header className={classes.navbar}>
       <h1 className={classes.logo} onClick={() => router.push("/")}>
@@ -88,7 +93,24 @@ export default function VisitorNavBar() {
           ))}
         </nav>
       )}
-      
+
+      {session && (session.user as User).role === Roles.ADMIN && (
+        <nav className={classes.menu}>
+          {adminRoutes.map((r, i) => (
+            <li
+              key={r.path}
+              className={`${classes.navitem} ${
+                router.pathname === r.path && classes.activeNavitem
+              }`}
+            >
+              <Link href={`${r.path}`}>
+                <a className={classes.navlink}>{r.name}</a>
+              </Link>
+            </li>
+          ))}
+        </nav>
+      )}
+
       {/* components floating to the right */}
       <div className={classes.toRight}>
         {session && (session.user as User).role === Roles.BRAND && (

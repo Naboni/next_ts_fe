@@ -91,3 +91,15 @@ export const column = [
     key: "ageRange",
   },
 ];
+
+export const adminClaimProfileColumn = [
+  {
+    title: "TikTok Handle",
+    dataIndex: "tiktokHandle",
+    key: "tiktokHandle",
+    width: 150,
+  },
+  { title: "Paste Code", dataIndex: "pasteCode", key: "pasteCode" },
+  { title: "User ID", dataIndex: "userId", key: "userId" },
+  { title: "Created At", dataIndex: "createdAt", key: "createdAt" },
+];

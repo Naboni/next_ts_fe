@@ -3,6 +3,8 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/client";
 import { prisma } from "../../../lib/prisma";
 
+import { Pv } from "../../../constants/roles";
+
 const { claim } = prisma;
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -18,20 +20,49 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(401).json({ success: false, message: "Unauthenticated" });
   }
 
-  const user = session.user;
+  const user = session.user as any;
   const { tiktokHandle, pasteCode } = req.body;
 
   try {
-    // const checkClaim = await claim.findUnique({ where: {} });
-    const result = await claim.create({
-      data: {
-        pasteCode,
-        tiktokHandle,
-        userId: user.id,
+    const checkClaim = await claim.findUnique({
+      where: {
+        userId: user?.id,
       },
     });
 
-    return res.status(201).json({ success: true, result });
+    if (checkClaim) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "Your account is already under verification. Please wait patiently.",
+      });
+    }
+
+    await prisma.$transaction([
+      // ! 1. update user profile
+      prisma.user.update({
+        where: {
+          id: user?.id,
+        },
+        data: {
+          profileVerification: Pv.PENDING as any,
+        },
+      }),
+      // ! 2. Create verification
+      claim.create({
+        data: {
+          pasteCode,
+          tiktokHandle,
+          userId: user?.id,
+        },
+      }),
+    ]);
+
+    return res.status(201).json({
+      success: true,
+      message:
+        "You successfully started the verification process. This might take at most 48 hours.",
+    });
   } catch (error) {
     return res
       .status(500)

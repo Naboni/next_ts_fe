@@ -3,8 +3,8 @@ import { GetServerSideProps } from "next";
 
 import React, { useState, useEffect } from "react";
 
-import { useRouter } from "next/router";
 import { getSession } from "next-auth/client";
+import { useSession } from "next-auth/client";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import Image from "next/image";
@@ -13,7 +13,7 @@ import Image from "next/image";
 import CenterContent from "../components/CenterContent";
 
 // relative
-import { Roles } from "../constants/roles";
+import { Pv, Roles } from "../constants/roles";
 import tiktokLogo from "../public/tiktok.svg";
 import {
   claimProfile as cp,
@@ -24,9 +24,12 @@ import {
 import classes from "../styles/claimProfile.module.css";
 
 // antd
-import { Input, Button, Form, message } from "antd";
+import { Input, Button, Form, message, Alert } from "antd";
 
 export default function claimProfile() {
+  const [session, _] = useSession();
+  const user = session?.user as any;
+
   const [loggingIn, setLoggingIn] = useState(false);
   const [verifying, setVerifying] = useState(false);
   const [err, setErr] = useState("");
@@ -52,22 +55,17 @@ export default function claimProfile() {
     setVerifying(true);
     setErr("");
     verifyProfile(response?.tiktokHandle!, response?.pasteCode!)
-      .then((res) => {
+      .then(async (res) => {
+        const data = await res.json();
         if (res.ok) {
-          message.success("Wooohoooo!");
+          message.success(data.message, 10);
         } else {
-          message.error("Booooooooo!");
+          message.error(data.message, 10);
         }
       })
       .catch((e) => setErr("Something went wrong!"))
       .finally(() => setVerifying(false));
   };
-
-  useEffect(() => {
-    if (err != "") {
-      message.error(err);
-    }
-  }, [err]);
 
   useEffect(() => {
     if (response) {
@@ -81,6 +79,21 @@ export default function claimProfile() {
         <div className={classes.wrapper}>
           <div style={{ width: "100%" }}>
             <div className={classes.header}>
+              {user.profileVerification === Pv.PENDING && (
+                <Alert
+                  style={{ marginBottom: "20px" }}
+                  type="warning"
+                  message="Your account is already under verification. Please wait patiently."
+                />
+              )}
+
+              {user.profileVerification === Pv.REJECTED && (
+                <Alert
+                  style={{ marginBottom: "20px" }}
+                  type="error"
+                  message="Your account failed the verification process. Please try again."
+                />
+              )}
               <div className={classes.headerInput}>
                 <Image src={tiktokLogo} width="100px" height="100px" />
                 <div style={{ marginLeft: "20px" }}>
@@ -177,18 +190,22 @@ export default function claimProfile() {
   );
 }
 
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   const session = await getSession(context);
-//   if (!session || session.user?.role !== Roles.CREATOR) {
-//     // ! redirecting back to home b/c if a logged in user redirected to signin, it will again redirect to home
-//     return {
-//       redirect: {
-//         destination: "/",
-//         permanent: false,
-//       },
-//     };
-//   }
-//   return {
-//     props: { session },
-//   };
-// };
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+  if (
+    !session ||
+    (session.user as any).role !== Roles.CREATOR ||
+    (session.user as any).profileVerification === Pv.APPROVED
+  ) {
+    // ! redirecting back to home b/c if a logged in user redirected to signin, it will again redirect to home
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: { session },
+  };
+};
