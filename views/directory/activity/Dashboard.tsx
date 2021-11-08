@@ -16,11 +16,12 @@ export default function Dashboard() {
           <h3>Hi, {user.username}</h3>
         </div>
       </header>
-      {user?.profileVerification !== Pv.APPROVED && (
-        <header className={classes.header} style={{ marginTop: "20px" }}>
-          <ClaimProfile />
-        </header>
-      )}
+      {user?.profileVerification !== Pv.APPROVED &&
+        user?.profileVerification !== Pv.COMPLETED && (
+          <header className={classes.header} style={{ marginTop: "20px" }}>
+            <ClaimProfile />
+          </header>
+        )}
     </div>
   );
 }

@@ -53,6 +53,7 @@ export default function VisitorNavBar() {
   const adminRoutes = [
     { path: "/admin ", name: "Dashboard" },
     { path: "/admin/profile-claims", name: "Profile claims" },
+    { path: "/admin/setup-profile", name: "Setup profile" },
   ];
 
   return (

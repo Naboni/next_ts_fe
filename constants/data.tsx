@@ -1,4 +1,4 @@
-import { format, parseISO } from "date-fns";
+import { format, formatDistance, parseISO } from "date-fns";
 
 // styles
 import classes from "./column.module.css";
@@ -95,16 +95,41 @@ export const column = [
 export const adminClaimProfileColumn = [
   {
     title: "TikTok Handle",
-    dataIndex: "tiktokHandle",
+
     key: "tiktokHandle",
     width: 150,
+    render: (record: any) => (
+      <span
+        style={{
+          borderRadius: "1px",
+          padding: "2px 10px 5px",
+          backgroundColor: "#ececec",
+        }}
+      >
+        @{record?.tiktokHandle}
+      </span>
+    ),
   },
   { title: "Paste Code", dataIndex: "pasteCode", key: "pasteCode" },
   { title: "User ID", dataIndex: "userId", key: "userId" },
   {
     title: "Created At",
     key: "createdAt",
-    render: (record: any) =>
-      `${format(parseISO(record?.createdAt as string), "PPpp")}%`,
+    render: (record: any) => (
+      <div>
+        {format(parseISO(record?.createdAt as string), "PPpp")}{" "}
+        <span
+          style={{
+            borderRadius: "1px",
+            padding: "2px 10px",
+            backgroundColor: "#ececec",
+          }}
+        >
+          {formatDistance(parseISO(record?.createdAt as string), new Date(), {
+            addSuffix: true,
+          })}
+        </span>
+      </div>
+    ),
   },
 ];

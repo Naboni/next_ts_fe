@@ -18,7 +18,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(401).json({ success: false, message: "Unauthenticated" });
   }
 
-  const user = session.user;
+  const user = session.user as any;
 
   try {
     const {

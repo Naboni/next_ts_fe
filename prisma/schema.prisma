@@ -20,7 +20,7 @@ model User {
 
   campaigns Campaign[]
   claims    Claim[]
-  profile Profile?
+  profile   Profile?   @relation("profile")
 
   @@map("user")
 }
@@ -102,33 +102,33 @@ model Claim {
 }
 
 model Profile {
-  id String    @id @default(uuid())
+  id String @id @default(uuid())
 
   name           String
-  profilePicture String @db.VarChar(500)
-  followers      Int
+  profilePicture String     @db.VarChar(500)
+  followers      String
   trend          String[]
-  bio            String @db.VarChar(500)
-  experience     Experience @default(BEGGINER)
+  bio            String     @db.VarChar(500)
+  experience     Experience @default(BEGINNER)
 
   // average of the last 5 videos
-  view           Int
-  like           Int
-  share          Int
-  comment        Int
-  engagementRate Int
-  
+  view           String
+  like           String
+  share          String
+  comment        String
+  engagementRate String
+
   sampleVideos    String[]
   sponsoredVideos String[]
 
   userId String @unique
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation("profile", fields: [userId], references: [id])
 
   @@map("profile")
 }
 
 enum Experience {
-  BEGGINER
+  BEGINNER
   INTERMEDIATE
   EXPERT
 }

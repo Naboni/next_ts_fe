@@ -21,4 +21,40 @@ const rejectVerification = async (uid: string, cid: string) => {
   return response;
 };
 
-export { getPendingVerifications, approveVerification, rejectVerification };
+// !profile related
+const setupProfile = async (
+  userId: string,
+  name: string,
+  profilePicture: string,
+  followers: number,
+  trend: string[],
+  bio: string,
+
+  videoData: Object[],
+  sampleVideos: Object[],
+  sponsoredVideos: Object[]
+) => {
+  const response = await fetch(`/api/profile/setup`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      userId,
+      name,
+      profilePicture,
+      followers,
+      trend,
+      bio,
+      videoData,
+      sampleVideos: sampleVideos ?? [],
+      sponsoredVideos: sponsoredVideos ?? [],
+    }),
+  });
+  return response;
+};
+
+export {
+  getPendingVerifications,
+  approveVerification,
+  rejectVerification,
+  setupProfile,
+};

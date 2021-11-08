@@ -13,3 +13,9 @@ export const Pv = {
   REJECTED: "REJECTED",
   COMPLETED: "COMPLETED",
 };
+
+export const Experience = {
+  BEGINNER: "BEGINNER",
+  INTERMEDIATE: "INTERMEDIATE",
+  EXPERT: "EXPERT",
+};
