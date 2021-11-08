@@ -20,6 +20,7 @@ model User {
 
   campaigns Campaign[]
   claims    Claim[]
+  profile Profile?
 
   @@map("user")
 }
@@ -37,6 +38,7 @@ enum Pv {
   APPROVED
   PENDING
   REJECTED
+  COMPLETED
 }
 
 model Campaign {
@@ -97,4 +99,36 @@ model Claim {
   createdAt DateTime @default(now())
 
   @@map("claim")
+}
+
+model Profile {
+  id String    @id @default(uuid())
+
+  name           String
+  profilePicture String @db.VarChar(500)
+  followers      Int
+  trend          String[]
+  bio            String @db.VarChar(500)
+  experience     Experience @default(BEGGINER)
+
+  // average of the last 5 videos
+  view           Int
+  like           Int
+  share          Int
+  comment        Int
+  engagementRate Int
+  
+  sampleVideos    String[]
+  sponsoredVideos String[]
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@map("profile")
+}
+
+enum Experience {
+  BEGGINER
+  INTERMEDIATE
+  EXPERT
 }

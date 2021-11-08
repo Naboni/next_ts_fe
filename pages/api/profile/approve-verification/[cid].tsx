@@ -2,11 +2,12 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import { getSession } from "next-auth/client";
-import { Roles } from "../../../constants/roles";
+import { Roles } from "../../../../constants/roles";
 
-import { prisma } from "../../../lib/prisma";
+import { prisma } from "../../../../lib/prisma";
+import { Pv } from "../../../../constants/roles";
 
-const { claim } = prisma;
+const { user } = prisma;
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== "GET") {
@@ -17,18 +18,27 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   // ! check session
   const session = await getSession({ req });
-  const user = session?.user;
+  const suser = session?.user as any;
 
-  if (!session || (user as any).role !== Roles.ADMIN) {
+  if (!session || (suser as any).role !== Roles.ADMIN) {
     return res.status(401).json({ success: false, message: "Unauthenticated" });
   }
 
+  const cid = req.query.cid as string;
+
   try {
-    const result = await claim.findMany({
-      where: { user: { profileVerification: "PENDING" } },
-      include: { user: true },
+    await user.update({
+      where: {
+        id: cid,
+      },
+      data: {
+        profileVerification: Pv.APPROVED as any,
+      },
     });
-    return res.status(200).json({ success: true, result });
+
+    return res
+      .status(204)
+      .json({ success: true, message: "User updated successfully" });
   } catch (error) {
     return res
       .status(500)

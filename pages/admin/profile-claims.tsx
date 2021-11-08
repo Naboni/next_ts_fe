@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 
 // relative
-import { getPendingVerifications } from "../../backend-utils/admin-utils";
+import {
+  getPendingVerifications,
+  rejectVerification,
+} from "../../backend-utils/admin-utils";
 import { adminClaimProfileColumn } from "../../constants/data";
 
 // components
@@ -10,7 +13,7 @@ import CenterContent from "../../components/CenterContent";
 import ApproveModal from "../../components/admin/ApproveModal";
 
 // antd
-import { Table, Empty, Button, Space } from "antd";
+import { Table, Empty, Button, Space, Popconfirm, notification } from "antd";
 
 interface Claim {
   createdAt: string;
@@ -64,6 +67,32 @@ export default function ProfileClaims() {
     return el;
   });
 
+  // ! popconfirm func
+  function confirm(claim: Claim) {
+    rejectVerification(claim?.userId as string, claim?.id as string)
+      .then((res) => {
+        if (res.ok) {
+          notification.success({
+            message: "Success",
+            description: "User rejection succeeded.",
+            placement: "bottomLeft",
+          });
+        } else {
+          notification.error({
+            message: "Error",
+            description: "User rejection failed.",
+            placement: "bottomLeft",
+          });
+        }
+      })
+      .catch((e) =>
+        notification.error({
+          message: "Error",
+          description: e,
+          placement: "bottomLeft",
+        })
+      );
+  }
   const col = [
     ...adminClaimProfileColumn,
     {
@@ -79,9 +108,17 @@ export default function ProfileClaims() {
             >
               Approve
             </Button>
-            <Button type="primary" danger>
-              Reject
-            </Button>
+            <Popconfirm
+              placement="topLeft"
+              title="Reject user?"
+              onConfirm={() => confirm(record)}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button type="primary" danger>
+                Reject
+              </Button>
+            </Popconfirm>
           </Space>
         );
       },

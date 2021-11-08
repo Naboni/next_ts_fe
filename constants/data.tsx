@@ -1,5 +1,5 @@
-// antd
-import { Avatar, Image, Space, Tag, Button } from "antd";
+import { format, parseISO } from "date-fns";
+
 // styles
 import classes from "./column.module.css";
 interface Record {
@@ -101,5 +101,10 @@ export const adminClaimProfileColumn = [
   },
   { title: "Paste Code", dataIndex: "pasteCode", key: "pasteCode" },
   { title: "User ID", dataIndex: "userId", key: "userId" },
-  { title: "Created At", dataIndex: "createdAt", key: "createdAt" },
+  {
+    title: "Created At",
+    key: "createdAt",
+    render: (record: any) =>
+      `${format(parseISO(record?.createdAt as string), "PPpp")}%`,
+  },
 ];

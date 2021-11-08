@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 
+import { format, parseISO } from "date-fns";
+
 // relative
 import { verify } from "../../lib/auth";
+import { approveVerification } from "../../backend-utils/admin-utils";
+
 // styles
 import classes from "./modal.module.css";
 // antd
-import { Modal, Button, Alert } from "antd";
+import { Modal, Button, Alert, notification } from "antd";
 
 interface Claim {
   createdAt: string;
@@ -30,7 +34,33 @@ export default function ApproveModal({
 
   const handleOk = () => {
     setConfirmLoading(true);
-    console.log("hiiii");
+    approveVerification(claim?.userId as string)
+      .then((res) => {
+        if (res.ok) {
+          notification.success({
+            message: "Success",
+            description: "User approval succeeded.",
+            placement: "bottomLeft",
+          });
+        } else {
+          notification.error({
+            message: "Error",
+            description: "User approval failed.",
+            placement: "bottomLeft",
+          });
+        }
+      })
+      .catch((e) =>
+        notification.error({
+          message: "Error",
+          description: e,
+          placement: "bottomLeft",
+        })
+      )
+      .finally(() => {
+        setConfirmLoading(false);
+        setVisible(false);
+      });
   };
 
   const handleCancel = () => {
@@ -48,13 +78,15 @@ export default function ApproveModal({
       setShowAlert(true);
     }
   }, [alert]);
+
   return (
     <Modal
       title="Approval request"
       visible={visible}
+      okText="Approve"
       onOk={handleOk}
-      confirmLoading={confirmLoading}
       onCancel={handleCancel}
+      confirmLoading={confirmLoading}
     >
       <div>
         <div className={classes.flex}>
@@ -63,14 +95,14 @@ export default function ApproveModal({
         </div>
         <div className={classes.flex}>
           <h3>At: </h3>
-          <h4>{claim?.createdAt}</h4>
+          <h4>{format(parseISO(claim?.createdAt as string), "PPpp")}</h4>
         </div>
         <div className={classes.flex} style={{ marginTop: "20px" }}>
           <h3 className={classes.handle}>{claim?.tiktokHandle}</h3>
           <h5 style={{ marginLeft: "10px" }}>{claim?.pasteCode}</h5>
         </div>
         <Button
-          type="primary"
+          type="link"
           size="middle"
           style={{ marginTop: "10px", marginBottom: "10px" }}
           onClick={checkIfValid}

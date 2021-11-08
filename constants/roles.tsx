@@ -11,4 +11,5 @@ export const Pv = {
   APPROVED: "APPROVED",
   PENDING: "PENDING",
   REJECTED: "REJECTED",
+  COMPLETED: "COMPLETED",
 };

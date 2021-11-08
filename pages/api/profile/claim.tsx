@@ -1,5 +1,10 @@
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+// ! this route only returns the hashed tiktok handle
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+
 // types
 import type { NextApiRequest, NextApiResponse } from "next";
+
 import { getSession } from "next-auth/client";
 import { hashPassword } from "../../../lib/auth";
 

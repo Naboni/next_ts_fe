@@ -16,8 +16,7 @@ export default function Dashboard() {
           <h3>Hi, {user.username}</h3>
         </div>
       </header>
-      {(user?.profileVerification === Pv.INITIAL ||
-        user?.profileVerification === Pv.PENDING) && (
+      {user?.profileVerification !== Pv.APPROVED && (
         <header className={classes.header} style={{ marginTop: "20px" }}>
           <ClaimProfile />
         </header>

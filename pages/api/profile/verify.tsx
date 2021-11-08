@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/client";
 import { prisma } from "../../../lib/prisma";
 
-import { Pv } from "../../../constants/roles";
+import { Pv, Roles } from "../../../constants/roles";
 
 const { claim } = prisma;
 
@@ -16,21 +16,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   // ! check session
   const session = await getSession({ req });
-  if (!session) {
+  const user = session?.user as any;
+  if (!session || user.role !== Roles.CREATOR) {
     return res.status(401).json({ success: false, message: "Unauthenticated" });
   }
 
-  const user = session.user as any;
   const { tiktokHandle, pasteCode } = req.body;
 
   try {
-    const checkClaim = await claim.findUnique({
-      where: {
-        userId: user?.id,
-      },
-    });
-
-    if (checkClaim) {
+    if (
+      user.profileVerification === Pv.APPROVED ||
+      user.profileVerification === Pv.PENDING
+    ) {
       return res.status(400).json({
         success: false,
         message:
@@ -64,6 +61,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         "You successfully started the verification process. This might take at most 48 hours.",
     });
   } catch (error) {
+    console.log(error);
+
     return res
       .status(500)
       .send({ success: false, message: "Something went wrong.", error });
