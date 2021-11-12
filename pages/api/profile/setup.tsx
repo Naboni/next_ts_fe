@@ -23,8 +23,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const {
-      uid,
+      userId,
       name,
+      tiktokHandle,
       profilePicture,
       followers,
       trend,
@@ -33,6 +34,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       sampleVideos,
       sponsoredVideos,
     } = req.body;
+
     if (!videoData || !sponsoredVideos || !sampleVideos) {
       return res
         .status(400)
@@ -44,7 +46,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       // ! 1. update user profile
       prisma.user.update({
         where: {
-          id: "9fe4b547-edd2-48ff-97d4-9b790fa594dd",
+          id: userId,
         },
         data: {
           profileVerification: Pv.COMPLETED as any,
@@ -54,6 +56,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       profile.create({
         data: {
           name,
+          handle: tiktokHandle,
           profilePicture,
           followers: followers,
           trend,
@@ -69,7 +72,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           sponsoredVideos: sponsoredVideos.map((e: any) => e.link),
 
           experience: "BEGINNER" as any,
-          userId: "9fe4b547-edd2-48ff-97d4-9b790fa594dd",
+          userId,
         },
       }),
     ]);

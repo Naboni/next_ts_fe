@@ -18,7 +18,7 @@ import { Roles } from "../../../constants/roles";
 import Profile from "../../profile/ProfileDropDown";
 
 interface User {
-  id: null;
+  id: string;
   username: string;
   email: string;
   password: null;
@@ -45,9 +45,13 @@ export default function VisitorNavBar() {
   ];
 
   const creatorRoutes = [
-    { path: "/activity", name: "My activity" },
-    { path: "/profile", name: "Profile" },
-    { path: "/learn", name: "Learn" },
+    { href: "/activity", path: "/activity", name: "My activity" },
+    {
+      href: "/creator",
+      path: `/creator/${(session?.user as User)?.id}`,
+      name: "Profile",
+    },
+    { href: "/learn", path: "/learn", name: "Learn" },
   ];
 
   const adminRoutes = [
@@ -84,7 +88,7 @@ export default function VisitorNavBar() {
             <li
               key={r.path}
               className={`${classes.navitem} ${
-                router.pathname.startsWith(r.path) && classes.activeNavitem
+                router.pathname.startsWith(r.href) && classes.activeNavitem
               }`}
             >
               <Link href={`${r.path}${i === 0 ? "/dashboard" : ""}`}>

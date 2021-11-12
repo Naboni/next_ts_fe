@@ -22,9 +22,15 @@ const rejectVerification = async (uid: string, cid: string) => {
 };
 
 // !profile related
+const getApprovedProfiles = async () => {
+  const response = await fetch(`/api/profile/get-approved-profiles`);
+  return response;
+};
+
 const setupProfile = async (
   userId: string,
   name: string,
+  tiktokHandle: string,
   profilePicture: string,
   followers: number,
   trend: string[],
@@ -40,6 +46,7 @@ const setupProfile = async (
     body: JSON.stringify({
       userId,
       name,
+      tiktokHandle,
       profilePicture,
       followers,
       trend,
@@ -56,5 +63,6 @@ export {
   getPendingVerifications,
   approveVerification,
   rejectVerification,
+  getApprovedProfiles,
   setupProfile,
 };

@@ -2,10 +2,10 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import { getSession } from "next-auth/client";
-import { Roles } from "../../../../constants/roles";
 
-import { prisma } from "../../../../lib/prisma";
-import { Pv } from "../../../../constants/roles";
+import { Roles } from "@/constants/roles";
+import { Pv } from "@/constants/roles";
+import { prisma } from "@/lib/prisma";
 
 const { user } = prisma;
 

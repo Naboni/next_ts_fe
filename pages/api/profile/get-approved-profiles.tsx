@@ -2,11 +2,11 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import { getSession } from "next-auth/client";
-import { Roles } from "../../../constants/roles";
+import { Roles } from "@/constants/roles";
 
-import { prisma } from "../../../lib/prisma";
+import { prisma } from "lib/prisma";
 
-const { claim } = prisma;
+const { user } = prisma;
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== "GET") {
@@ -17,21 +17,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   // ! check session
   const session = await getSession({ req });
-  const user = session?.user;
+  const suser = session?.user;
 
-  if (!session || (user as any).role !== Roles.ADMIN) {
+  if (!session || (suser as any).role !== Roles.ADMIN) {
     return res.status(401).json({ success: false, message: "Unauthenticated" });
   }
 
   try {
-    const result = await claim.findMany({
-      where: { user: { profileVerification: "PENDING" as any} },
-      include: { user: true },
+    const result = await user.findMany({
+      where: { role: "CREATOR", profileVerification: "APPROVED" },
     });
     return res.status(200).json({ success: true, result });
   } catch (error) {
-    console.log(error);
-
     return res
       .status(500)
       .send({ success: false, message: "Something went wrong.", error });

@@ -4,13 +4,13 @@ import React, { useEffect, useState } from "react";
 import {
   getPendingVerifications,
   rejectVerification,
-} from "../../backend-utils/admin-utils";
-import { adminClaimProfileColumn } from "../../constants/data";
+} from "backend-utils/admin-utils";
+import { adminClaimProfileColumn } from "@/constants/data";
 
 // components
-import CenterLoading from "../../components/CenterLoading";
-import CenterContent from "../../components/CenterContent";
-import ApproveModal from "../../components/admin/ApproveModal";
+import CenterLoading from "@/components/CenterLoading";
+import CenterContent from "@/components/CenterContent";
+import ApproveModal from "@/components/admin/ApproveModal";
 
 // antd
 import { Table, Empty, Button, Space, Popconfirm, notification } from "antd";
@@ -35,8 +35,14 @@ export default function ProfileClaims() {
     getPendingVerifications()
       .then((res) => res.json())
       .then((data) => {
+        if (!data.success) {
+          setData([]);
+          console.log(data);
+        }
+
         setData(data.result);
-      });
+      })
+      .catch((e) => setData([]));
   }, []);
 
   useEffect(() => {
@@ -59,13 +65,21 @@ export default function ProfileClaims() {
   }, [visibleApprove]);
 
   if (isLoading) {
-    return <CenterLoading width="100%" height="50vh" bg="transparent" />;
+    return (
+      <div className="marginTop">
+        <CenterLoading width="100%" height="50vh" bg="transparent" />
+      </div>
+    );
   }
 
-  const colData = data.map((el: any) => {
-    el.key = el.userId;
-    return el;
-  });
+  let colData: any[] = [];
+
+  if (data?.length > 0) {
+    colData = data.map((el: any) => {
+      el.key = el.userId;
+      return el;
+    });
+  }
 
   // ! popconfirm func
   function confirm(claim: Claim) {

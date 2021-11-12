@@ -63,6 +63,11 @@
   font-size: 12px;
 }
 
+.bio {
+  overflow: hidden;
+  max-height: 65px;
+}
+
 .topics {
   display: flex;
 }

@@ -1,7 +1,9 @@
 import { format, formatDistance, parseISO } from "date-fns";
+import Link from "next/link";
 
 // styles
 import classes from "./column.module.css";
+
 interface Record {
   key: string;
   videoId: string;
@@ -129,6 +131,82 @@ export const adminClaimProfileColumn = [
             addSuffix: true,
           })}
         </span>
+      </div>
+    ),
+  },
+];
+
+interface User {
+  id: string;
+  username: string;
+  profileVerification: string;
+  createdAt: string;
+  claims: any;
+}
+
+export const setUpProfileColumn = [
+  {
+    title: "Username",
+    key: "username",
+    dataIndex: "username",
+  },
+
+  {
+    title: "TikTok handle",
+    key: "tiktokHandle",
+    width: 150,
+    render: (record: User) => (
+      <span
+        style={{
+          borderRadius: "1px",
+          padding: "2px 10px 5px",
+          backgroundColor: "#ececec",
+        }}
+      >
+        @{record.claims[0].tiktokHandle}
+      </span>
+    ),
+  },
+  {
+    title: "Profile Verification",
+    key: "profileVerification",
+    dataIndex: "profileVerification",
+  },
+  {
+    title: "Created At",
+    key: "createdAt",
+    render: (record: User) => (
+      <div>
+        {format(parseISO(record.createdAt), "PPpp")}{" "}
+        <span
+          style={{
+            borderRadius: "1px",
+            padding: "2px 10px",
+            backgroundColor: "#ececec",
+            marginLeft: "15px",
+          }}
+        >
+          {formatDistance(parseISO(record?.createdAt as string), new Date(), {
+            addSuffix: true,
+          })}
+        </span>
+      </div>
+    ),
+  },
+  {
+    title: "",
+    key: "id",
+    width: "150px",
+    render: (record: User) => (
+      <div
+        style={{
+          borderRadius: "1px",
+          padding: "2px 10px",
+          backgroundColor: "#ececec",
+          marginLeft: "15px",
+        }}
+      >
+        <Link href={`/admin/setup-profile/${record.id}`}>Setup Profile</Link>
       </div>
     ),
   },

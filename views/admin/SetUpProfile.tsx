@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-import { useRouter } from "next/router";
-
 // relative
-import { setupProfile } from "../../backend-utils/admin-utils";
+import { setupProfile } from "backend-utils/admin-utils";
 
 // styles
 import classes from "../campaign/createCampaign.module.css";
@@ -31,18 +29,16 @@ interface ItemProps {
 
 const options: ItemProps[] = [
   {
-    label: `Long Label: A`,
-    value: "AAAA",
+    label: `Fun`,
+    value: "Fun",
   },
   {
-    label: `Long Label: B`,
-    value: "BBBB",
+    label: `Beauty & Fashion`,
+    value: "Beauty & Fashion",
   },
 ];
 
-export default function SetUpProfile() {
-  const router = useRouter();
-
+export default function SetUpProfile({ userId }: { userId: string }) {
   // ! submit state
   const [loggingIn, setLoggingIn] = useState(false);
   const [err, setErr] = useState("");
@@ -65,23 +61,24 @@ export default function SetUpProfile() {
 
   // ! final form value
   const onFinish = (values: any) => {
-    // if (
-    //   !values.videoData ||
-    //   values.videoData?.length !== 5 ||
-    //   !values.sampleVideos ||
-    //   values.sampleVideos?.length !== 5
-    // ) {
-    //   message.error("Number of videos must be 5!", 5);
-    //   return;
-    // }
+    if (
+      !values.videoData ||
+      values.videoData?.length !== 5 ||
+      !values.sampleVideos ||
+      values.sampleVideos?.length !== 5
+    ) {
+      message.error("Number of videos must be 5!", 5);
+      return;
+    }
 
     setLoggingIn(true);
     setErr("");
     setShowAlert(false);
 
     setupProfile(
-      "9fe4b547-edd2-48ff-97d4-9b790fa594dd",
+      userId,
       values.creatorName,
+      values.creatorTiktokHandle,
       values.creatorProfileUrl,
       values.creatorFollowers,
       values.creatorTrends,
@@ -90,12 +87,11 @@ export default function SetUpProfile() {
       values.sampleVideos,
       values.sponsoredVideos
     )
-      .then((res) => res.json())
-      .then((data) => {
-        if (data) {
+      .then((res) => {
+        if (res.ok) {
           message.success("Successfully finished setting up profile.", 5);
         } else {
-          setErr(data.message);
+          setErr("Can't post data again.");
         }
       })
       .catch((e) => setErr(e.message))
@@ -138,6 +134,20 @@ export default function SetUpProfile() {
                 ]}
               >
                 <Input placeholder="Enter creator's name" />
+              </Form.Item>
+
+              <Form.Item
+                label="Creator Tiktok Handle"
+                name="creatorTiktokHandle"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input the creator's tiktok handle!",
+                    max: 50,
+                  },
+                ]}
+              >
+                <Input placeholder="Enter creator's tiktok handle" />
               </Form.Item>
 
               <Form.Item
@@ -232,20 +242,7 @@ export default function SetUpProfile() {
                         >
                           <Input placeholder="Video likes" type="number" />
                         </Form.Item>
-                        <Form.Item
-                          {...field}
-                          name={[field.name, "shares"]}
-                          fieldKey={[field.fieldKey, "shares"]}
-                          rules={[
-                            {
-                              required: true,
-                              message: "Missing shares",
-                              max: 10,
-                            },
-                          ]}
-                        >
-                          <Input placeholder="Video shares" type="number" />
-                        </Form.Item>
+
                         <Form.Item
                           {...field}
                           name={[field.name, "comments"]}
@@ -261,6 +258,20 @@ export default function SetUpProfile() {
                           <Input placeholder="Video comments" type="number" />
                         </Form.Item>
 
+                        <Form.Item
+                          {...field}
+                          name={[field.name, "shares"]}
+                          fieldKey={[field.fieldKey, "shares"]}
+                          rules={[
+                            {
+                              required: true,
+                              message: "Missing shares",
+                              max: 10,
+                            },
+                          ]}
+                        >
+                          <Input placeholder="Video shares" type="number" />
+                        </Form.Item>
                         <MinusCircleOutlined
                           onClick={() => remove(field.name)}
                         />

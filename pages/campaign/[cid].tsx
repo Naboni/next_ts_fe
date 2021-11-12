@@ -7,23 +7,23 @@ import { Tabs } from "antd";
 const { TabPane } = Tabs;
 
 // components
-import CenterContent from "../../components/CenterContent";
-import CenterLoading from "../../components/CenterLoading";
+import CenterContent from "@/components/CenterContent";
+import CenterLoading from "@/components/CenterLoading";
 
-import Header from "../../components/directory/myActivity/campaignDetail/Header";
-import MainBody from "../../components/directory/myActivity/campaignDetail/MainBody";
-import Creators from "../../components/directory/myActivity/campaignDetail/Creators";
-import Progress from "../../components/directory/myActivity/campaignDetail/Progress";
-import CampaignVideoList from "../../components/directory/myActivity/CampaignVideoList";
-import Calendar from "../../components/directory/myActivity/campaignDetail/Calendar";
-import Reporting from "../../components/directory/myActivity/campaignDetail/Reporting";
-import Payments from "../../components/directory/myActivity/campaignDetail/Payments";
+import Header from "@/components/directory/myActivity/campaignDetail/Header";
+import MainBody from "@/components/directory/myActivity/campaignDetail/MainBody";
+import Creators from "@/components/directory/myActivity/campaignDetail/Creators";
+import Progress from "@/components/directory/myActivity/campaignDetail/Progress";
+import CampaignVideoList from "@/components/directory/myActivity/CampaignVideoList";
+import Calendar from "@/components/directory/myActivity/campaignDetail/Calendar";
+import Reporting from "@/components/directory/myActivity/campaignDetail/Reporting";
+import Payments from "@/components/directory/myActivity/campaignDetail/Payments";
 
 // styles
-import classes from "../../styles/campaignDetail.module.css";
+import classes from "@/styles/campaignDetail.module.css";
 
 // relative
-import { getCampaignById } from "../../backend-utils/campaign-util";
+import { getCampaignById } from "backend-utils/campaign-util";
 
 export default function CampaignDetails() {
   const router = useRouter();

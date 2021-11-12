@@ -1,27 +1,28 @@
 import React from "react";
 
+import { useSession } from "next-auth/client";
+
 import { BiMailSend } from "react-icons/bi";
 import { BsBookmarkPlus } from "react-icons/bs";
+
+let abbreviate = require("number-abbreviate");
 
 // styles
 import classes from "./creatorCard.module.css";
 
 // antd
 import { Button } from "antd";
-interface IProps {
-  item: {
-    _id: string;
-    first_name: string;
-    last_name: string;
-    tiktokUserName: string;
-  };
-}
-export default function CreatorCard({ item }: IProps) {
+import { Roles } from "@/constants/roles";
+
+export default function CreatorCard({ item }: any) {
+  const [session, _] = useSession();
+  const user = session?.user as any;
+
   return (
     <div
       className={classes.card}
       style={{
-        position: "fixed",
+        // position: "fixed",
         height: "370px",
         boxShadow: "0 2px 5px 0 rgb(83 128 136 / 4%)",
       }}
@@ -31,7 +32,6 @@ export default function CreatorCard({ item }: IProps) {
           className={classes.avatarImg}
           alt="profile"
           src="https://www.irishtimes.com/polopoly_fs/1.4026833.1569190266!/image/image.jpg_gen/derivatives/box_620_330/image.jpg"
-          // src={item.tiktok.user.avatarMedium}
         />
       </div>
       <div className={classes.header}>
@@ -48,21 +48,19 @@ export default function CreatorCard({ item }: IProps) {
         </div>
         {/* <h1 className={classes.fullName}>{`${item.first_name} ${item.last_name}`}</h1>
                 <p className={classes.tiktokUsername}>{item.tiktok.user.signature}</p> */}
-        <h1 className={classes.fullName}>{`${
-          item.first_name + " " + item.last_name
-        }`}</h1>
-        <p className={classes.tiktokUsername}>{`@${item.tiktokUserName}`}</p>
+        <h1 className={classes.fullName}>{`${item.name}`}</h1>
+        <p className={classes.tiktokUsername}>{`@${item.handle}`}</p>
+
+        <p className={classes.bio}>{`${item.bio}`}</p>
 
         <div className={classes.topics}>
-          <div className={classes.topic}>
-            <h4>Computer</h4>
-          </div>
-          <div className={classes.topic}>
-            <h4>Book</h4>
-          </div>
-          <div className={classes.topic}>
-            <h4>Travel</h4>
-          </div>
+          {item.trend.map((el: any, index: number) => {
+            return (
+              <div className={classes.topic} key={index}>
+                <h4>{el}</h4>
+              </div>
+            );
+          })}
         </div>
 
         <div className={classes.status}>
@@ -74,7 +72,7 @@ export default function CreatorCard({ item }: IProps) {
                 marginBottom: "0px",
               }}
             >
-              10m
+              {abbreviate(item.followers, 1)}
             </h1>
             <p>Followers</p>
           </div>
@@ -86,21 +84,27 @@ export default function CreatorCard({ item }: IProps) {
                 marginBottom: "0px",
               }}
             >
-              10m
+              {abbreviate(item.view, 1)}
             </h1>
             <p>Average view</p>
           </div>
         </div>
 
-        <div className={classes.footer}>
-          <Button style={{ flex: "1" }} icon={<BiMailSend />} size={"middle"} />
-          <Button
-            type="primary"
-            style={{ flex: 5, width: "100%", marginLeft: "15px" }}
-          >
-            Add to campaign
-          </Button>
-        </div>
+        {user.role === Roles.BRAND && (
+          <div className={classes.footer}>
+            <Button
+              style={{ flex: "1" }}
+              icon={<BiMailSend />}
+              size={"middle"}
+            />
+            <Button
+              type="primary"
+              style={{ flex: 5, width: "100%", marginLeft: "15px" }}
+            >
+              Add to campaign
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
