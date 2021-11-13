@@ -6,8 +6,17 @@ import CreatorCard from "./CreatorCard";
 // antd
 import { List } from "antd";
 interface IProps {
-  data: { _id: string; first_name: string; last_name: string; tiktokUserName: string; }[];
+  data: {
+    bio: string;
+    followers: string;
+    handle: string;
+    name: string;
+    trend: string[];
+    userId: string;
+    view: string;
+  }[];
 }
+
 export default function CreatorList({ data }: IProps) {
   return (
     <div>

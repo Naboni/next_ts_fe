@@ -66,7 +66,11 @@ const CreatorDetail: NextPage = () => {
     return (
       <div className="marginTop">
         <div style={{ marginTop: "15%" }}>
-          <Empty children={<p>Your profile will be available after you get verified.</p>}/>
+          <Empty
+            children={
+              <p>Your profile will be available after you get verified.</p>
+            }
+          />
         </div>
       </div>
     );
@@ -214,7 +218,11 @@ function Metric({
   return (
     <div className={classes.metric}>
       {icon}
-      <h1>{abbreviate(value, 1).toString()}</h1>
+      <h1>
+        {!(label === "Engagement Rate")
+          ? abbreviate(value, 1).toString()
+          : value}
+      </h1>
       <p>{label}</p>
     </div>
   );

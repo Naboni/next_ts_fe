@@ -52,10 +52,14 @@ export default function CampaignDetails() {
   }
 
   if (isLoading) {
-    return <CenterLoading width="100%" height="50vh" bg="transparent" />;
+    return (
+      <div className="marginTop">
+        <CenterLoading width="100%" height="50vh" bg="transparent" />
+      </div>
+    );
   }
 
-  // const datsa = {
+  // const data = {
   //   brandIndustry: "jack"
   //   brandName: "Barclays"
   //   brandWebsite: "www.barcelona.com"

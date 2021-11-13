@@ -1,7 +1,9 @@
 import React from "react";
 
+import { format, formatDistance, parseISO } from "date-fns";
+
 // styles
-import classes from "../../../../styles/campaignDetail.module.css";
+import classes from "@/styles/campaignDetail.module.css";
 
 // antd
 import { Button, Select } from "antd";
@@ -33,7 +35,15 @@ export default function MainBody({
           </div>
           <div className={classes.headerBottom}>
             <h5>Campaign ID: {campaignId}</h5>
-            <h5>Creation time: {creationTime}</h5>
+            <h5>
+              Creation time: {format(parseISO(creationTime), "PPpp")}
+              {","}
+              <span style={{ marginLeft: "5px" }}>
+                {formatDistance(parseISO(creationTime), new Date(), {
+                  addSuffix: true,
+                })}
+              </span>
+            </h5>
           </div>
         </div>
         <div>

@@ -22,6 +22,7 @@ export default function SetupProfile() {
         if (!data.success) {
           setData([]);
         }
+        console.log(data.result);
 
         setData(data.result);
       });
@@ -72,11 +73,5 @@ export default function SetupProfile() {
         />
       </CenterContent>
     </div>
-
-    // <div className="marginTop">
-    //   <CenterContent>
-    //     <SetUpProfile />
-    //   </CenterContent>
-    // </div>
   );
 }

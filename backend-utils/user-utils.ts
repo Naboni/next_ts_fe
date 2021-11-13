@@ -20,3 +20,6 @@ const signup = async (
 // ! signIn inside [...nextauth].tsx
 
 export { signup };
+
+
+// ! everything related with auth

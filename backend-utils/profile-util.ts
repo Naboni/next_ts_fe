@@ -22,3 +22,5 @@ const verifyProfile = async (tiktokHandle: string, pasteCode: string) => {
 };
 
 export { claimProfile, verifyProfile };
+
+// ! everything related with profile of a creator

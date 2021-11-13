@@ -10,22 +10,27 @@ import classes from "./creatorCard.module.css";
 
 // antd
 import { Button } from "antd";
+
+let abbreviate = require("number-abbreviate");
+
 interface IProps {
   item: {
-    _id: string,
-    first_name : string,
-    last_name : string,
-    tiktokUserName: string,
+    bio: string;
+    followers: string;
+    handle: string;
+    name: string;
+    trend: string[];
+    userId: string;
+    view: string;
   };
 }
 export default function CreatorCard({ item }: IProps) {
-
   const router = useRouter();
-  // ! for now pushing creator data from props, change to url/:id when getlist stops returning whole data in z beginning
+  // ! for now pushing creator data from props, change to url/:id when getList stops returning whole data in z beginning
   return (
     <div
       className={classes.card}
-      onClick={() => router.push(`/creator/${item._id}`)}
+      onClick={() => router.push(`/creator/${item.userId}`)}
     >
       <div className={classes.avatar}>
         <img
@@ -47,23 +52,20 @@ export default function CreatorCard({ item }: IProps) {
         <div className={classes.addToList}>
           <BsBookmarkPlus />
         </div>
-        {/* <h1 className={classes.fullName}>{`${item.first_name} ${item.last_name}`}</h1>
-                <p className={classes.tiktokUsername}>{item.tiktok.user.signature}</p> */}
-        <h1 className={classes.fullName}>{`${
-          item.first_name + " " + item.last_name
-        }`}</h1>
-        <p className={classes.tiktokUsername}>{`@${item.tiktokUserName}`}</p>
+
+        <h1 className={classes.fullName}>{`${item.name}`}</h1>
+        <p className={classes.tiktokUsername}>{`@${item.handle}`}</p>
+
+        {/* <p className={classes.bio}>{`${item.bio}`}</p> */}
 
         <div className={classes.topics}>
-          <div className={classes.topic}>
-            <h4>Computer</h4>
-          </div>
-          <div className={classes.topic}>
-            <h4>Book</h4>
-          </div>
-          <div className={classes.topic}>
-            <h4>Travel</h4>
-          </div>
+          {item.trend.map((el: any, index: number) => {
+            return (
+              <div className={classes.topic} key={index}>
+                <h4>{el}</h4>
+              </div>
+            );
+          })}
         </div>
 
         <div className={classes.status}>
@@ -75,7 +77,7 @@ export default function CreatorCard({ item }: IProps) {
                 marginBottom: "0px",
               }}
             >
-              10m
+              {abbreviate(item.followers, 1)}
             </h1>
             <p>Followers</p>
           </div>
@@ -87,7 +89,7 @@ export default function CreatorCard({ item }: IProps) {
                 marginBottom: "0px",
               }}
             >
-              10m
+              {abbreviate(item.view, 1)}
             </h1>
             <p>Average view</p>
           </div>

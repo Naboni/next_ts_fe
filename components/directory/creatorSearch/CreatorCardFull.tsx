@@ -23,7 +23,7 @@ export default function CreatorCard({ item }: any) {
       className={classes.card}
       style={{
         // position: "fixed",
-        height: "370px",
+        minHeight: "370px",
         boxShadow: "0 2px 5px 0 rgb(83 128 136 / 4%)",
       }}
     >

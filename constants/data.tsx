@@ -163,7 +163,7 @@ export const setUpProfileColumn = [
           backgroundColor: "#ececec",
         }}
       >
-        @{record.claims[0].tiktokHandle}
+        {/* @{record.claims[0].tiktokHandle} */}
       </span>
     ),
   },

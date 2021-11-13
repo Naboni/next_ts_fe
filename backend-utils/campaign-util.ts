@@ -52,3 +52,5 @@ const getAllCampaigns = async () => {
 };
 
 export { createCampaign, getCampaignById, getAllCampaigns };
+
+// ! everything related with campaign

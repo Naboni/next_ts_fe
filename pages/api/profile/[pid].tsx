@@ -4,8 +4,6 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/client";
 
 import { prisma } from "@/lib/prisma";
-import { Roles } from "@/constants/roles";
-import { Pv } from "@/constants/roles";
 
 const { cache, profile } = prisma;
 

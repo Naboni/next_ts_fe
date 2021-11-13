@@ -3,4 +3,9 @@ const getCreatorById = async (id: string) => {
   return response;
 };
 
-export { getCreatorById };
+const getCreators = async () => {
+  const response = await fetch(`/api/profile/all`);
+  return response;
+};
+
+export { getCreatorById, getCreators };
