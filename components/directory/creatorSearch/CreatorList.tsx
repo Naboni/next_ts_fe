@@ -1,22 +1,24 @@
 import React from "react";
 
 // widgets
-import CreatorCard from "./CreatorCard";
+import CreatorCardFull from "./CreatorCardFull";
 
 // antd
 import { List } from "antd";
-interface IProps {
-  data: {
-    bio: string;
-    followers: string;
-    handle: string;
-    name: string;
-    trend: string[];
-    userId: string;
-    view: string;
-  }[];
+
+interface IData {
+  bio: string;
+  followers: string;
+  handle: string;
+  name: string;
+  trend: string[];
+  userId: string;
+  view: string;
 }
 
+interface IProps {
+  data: IData[];
+}
 export default function CreatorList({ data }: IProps) {
   return (
     <div>
@@ -25,7 +27,7 @@ export default function CreatorList({ data }: IProps) {
         dataSource={data}
         renderItem={(item) => (
           <List.Item>
-            <CreatorCard item={item} />
+            <CreatorCardFull item={item} />
           </List.Item>
         )}
       />

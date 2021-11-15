@@ -96,10 +96,20 @@ export default function CreatorCard({ item }: IProps) {
         </div>
 
         <div className={classes.footer}>
-          <Button style={{ flex: "1" }} icon={<BiMailSend />} size={"middle"} />
+          <Button
+            style={{ flex: "1" }}
+            icon={<BiMailSend />}
+            size={"middle"}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          />
           <Button
             type="primary"
             style={{ flex: 5, width: "100%", marginLeft: "15px" }}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
           >
             Add to campaign
           </Button>

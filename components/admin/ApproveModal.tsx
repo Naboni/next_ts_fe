@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { format, parseISO } from "date-fns";
 
 // relative
-import { verify } from "../../lib/auth";
-import { approveVerification } from "../../backend-utils/admin-utils";
+import { verify } from "@/lib/auth";
+import { approveVerification } from "backend-utils/admin-utils";
 
 // styles
 import classes from "./modal.module.css";

@@ -2,9 +2,9 @@ import React from "react";
 import { BsInfoCircle } from "react-icons/bs";
 
 // components
-import CampaignList from "../../../components/directory/myActivity/CampaignList";
+import CampaignList from "@/components/directory/myActivity/CampaignList";
 // antd
-import { Input, Select } from "antd";
+import { Input } from "antd";
 const { Search } = Input;
 // styles
 import classes from "./campaignReport.module.css";

@@ -211,3 +211,23 @@ export const setUpProfileColumn = [
     ),
   },
 ];
+
+export const addToCampaignColumn = [
+  {
+    key: "campaignName",
+    dataIndex: "campaignName",
+  },
+  {
+    width: "100px",
+    key: "acceptedInvitations",
+    render: (record: any) => (
+      <p
+        style={{
+          margin: 0,
+        }}
+      >
+        {record.acceptedInvitations.length} creators
+      </p>
+    ),
+  },
+];

@@ -22,8 +22,6 @@ export default function SetupProfile() {
         if (!data.success) {
           setData([]);
         }
-        console.log(data.result);
-
         setData(data.result);
       });
   }, []);

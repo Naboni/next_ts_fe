@@ -10,21 +10,23 @@ import { List } from "antd";
 import classes from "./campaignList.module.css";
 
 // relative
-import { getAllCampaigns } from "../../../backend-utils/campaign-util";
+import { getAllCampaigns } from "backend-utils/campaign-util";
 
 // components
 import CenterLoading from "../../CenterLoading";
 
 export default function CampaignList() {
-
   const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState();
+  const [data, setData] = useState<any>();
 
   useEffect(() => {
     getAllCampaigns()
       .then((res) => res.json())
       .then((data) => {
-        setData(data);
+        if (!data.success) {
+          setData([]);
+        }
+        setData(data.result);
       });
   }, []);
 

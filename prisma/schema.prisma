@@ -18,6 +18,10 @@ model User {
 
   profileVerification Pv @default(INITIAL)
 
+  pendingInvitations  String[]
+  acceptedInvitations String[]
+  rejectedInvitations String[]
+
   campaigns Campaign[]
   claims    Claim[]
   profile   Profile?   @relation("profile")
@@ -69,7 +73,10 @@ model Campaign {
   totalShares           Int      @default(0)
   averageEngagementRate Int      @default(0)
   videos                String[]
-  creators              String[]
+
+  pendingInvitations  String[]
+  acceptedInvitations String[]
+  rejectedInvitations String[]
 
   userId String
   user   User   @relation(fields: [userId], references: [id])

@@ -99,9 +99,7 @@ export default function CampaignItem({ data }: IProps) {
               size="small"
               className={classes.metricsItem}
             >
-              <h1 className={classes.metricHeaderNumber}>
-                {data.creators.length}
-              </h1>
+              <h1 className={classes.metricHeaderNumber}>{0}</h1>
               <h2 className={classes.metricHeaderTitle}>Number of creators</h2>
             </Space>
           </Space>
