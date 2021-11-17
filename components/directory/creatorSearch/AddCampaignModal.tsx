@@ -46,7 +46,6 @@ export default function AddCampaignModal({
       message.error("No campaign selected!", 5);
     } else {
       setConfirmLoading(true);
-
       addCreatorsToCampaign(creator.userId, selectedCampaign)
         .then((res) => {
           if (res.ok) {

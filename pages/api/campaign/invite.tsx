@@ -25,6 +25,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   try {
+    var date = new Date();
+    const now = date.toISOString();
+    console.log(now);
+    
     const { creatorId, campaignIds } = req.body;
 
     const creator = await user.findUnique({ where: { id: creatorId } });
@@ -52,8 +56,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       }
 
       if (!currentCampaign?.pendingInvitations.includes(creatorId)) {
-        // ! save campaign name for invitation email
-        campaignNamesForInvitation.push(currentCampaign.campaignName);
+        // ! save company name for invitation email and for user.update
+        campaignNamesForInvitation.push({
+          companyName: currentCampaign.brandName,
+          campaignId: currentCampaign.id,
+        });
         batchUpdates.push(
           campaign.update({
             where: {
@@ -70,35 +77,47 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       }
     }
 
-    const creatorsPendingInvitations = [
-      ...creator.pendingInvitations,
-      ...campaignIds,
-    ];
-    let creatorsPendingInvitationsSet = new Set(creatorsPendingInvitations);
+    let campaignIdWithDetails: any[] = [];
+    if (campaignNamesForInvitation.length > 0) {
+      campaignIdWithDetails = campaignNamesForInvitation.map((el: any) => {
+        return {
+          companyName: el.companyName,
+          campaignId: el.campaignId,
+          createdAt: now,
+        };
+      });
+    }
 
-    await prisma.$transaction([
-      // ! 1. update campaign
-      ...batchUpdates,
-      // ! 2. update user
-      user.update({
-        where: {
-          id: creatorId,
-        },
-        data: {
-          pendingInvitations: Array.from(creatorsPendingInvitationsSet),
-        },
-      }),
-    ]);
+    // ! only write if batchUpdate list is > 0. b/c if empty, the company already invited that person
+    if (batchUpdates.length > 0) {
+      await prisma.$transaction([
+        // ! 1. update campaign
+        ...batchUpdates,
+        // ! 2. update user
+        user.update({
+          where: {
+            id: creatorId,
+          },
+          data: {
+            pendingInvitations: [
+              ...creator.pendingInvitations,
+              ...campaignIdWithDetails,
+            ],
+          },
+        }),
+      ]);
 
-    // if (campaignNamesForInvitation.length > 0) {
-    //   const pendingMails = campaignNamesForInvitation.map((campaignName) =>
-    //     mailer(`${campaignName} invited you to collaborate.`, "Invitation")
-    //   );
-    //   const r = await Promise.all(pendingMails);
-    //   console.log(r);
-    // }
+      // !!!!!
+      // ! the structure of the list changed. so, check before uncomment-ing
+      // !!!!!
+      //   const pendingMails = campaignNamesForInvitation.map((campaignName) =>
+      //     mailer(`${campaignName} invited you to collaborate.`, "Invitation")
+      //   );
+      //   const r = await Promise.all(pendingMails);
+      //   console.log(r);
+    }
 
-    return res.status(204);
+    return res.status(200).json({ success: true });
   } catch (error) {
     console.log(error);
     res.status(400).send({ success: false, message: "Invalid inputs!", error });

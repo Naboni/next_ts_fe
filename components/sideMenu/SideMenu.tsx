@@ -9,6 +9,7 @@ interface IProps {
     path: string;
     name: string;
     query: string;
+    length?: number;
   }[];
 }
 export default function SideMenu({ routes }: IProps) {
@@ -23,8 +24,13 @@ export default function SideMenu({ routes }: IProps) {
             router.query["pid"] === r.query && classes.activeNavitem
           }`}
         >
-          <Link href={r.path}>
-            <a className={classes.navlink}>{r.name}</a>
+          <Link href={r.path} shallow={true}>
+            <a className={classes.navlink}>
+              {r.name}
+              {r.length || r.length === 0 ? (
+                <span className={classes.count}>{r.length}</span>
+              ) : null}
+            </a>
           </Link>
         </li>
       ))}

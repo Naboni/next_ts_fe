@@ -18,7 +18,7 @@ import {
   Space,
   Radio,
   Divider,
-  Alert,
+  message,
 } from "antd";
 import {
   MinusCircleOutlined,
@@ -34,8 +34,6 @@ export default function CreateCampaign() {
 
   // ! submit state
   const [loggingIn, setLoggingIn] = useState(false);
-  const [err, setErr] = useState("");
-  const [showAlert, setShowAlert] = useState(false);
 
   // ! Radio state
   const options = [
@@ -61,8 +59,6 @@ export default function CreateCampaign() {
   // ! final form value
   const onFinish = (values: any) => {
     setLoggingIn(true);
-    setErr("");
-    setShowAlert(false);
     const rangeValue = values["campaignDuration"];
     const result = {
       ...values,
@@ -88,23 +84,16 @@ export default function CreateCampaign() {
       result.phone,
       result.productName
     )
-      .then((res) => res.json())
-      .then((data) => {
-        if (data) {
-          console.log(data);
+      .then((res) => {
+        if (res.ok) {
+          message.success(`Successfully created a campaign`);
         } else {
-          setErr(data.message);
+          message.error("Something went wrong!");
         }
       })
-      .catch((e) => setErr(e.message))
+      .catch((e) => message.error("Something went wrong!"))
       .finally(() => setLoggingIn(false));
   };
-
-  useEffect(() => {
-    if (err != "") {
-      setShowAlert(true);
-    }
-  }, [err]);
 
   return (
     <div className={classes.container}>
@@ -226,7 +215,12 @@ export default function CreateCampaign() {
                   },
                 ]}
               >
-                <TextArea rows={4} maxLength={800} showCount />
+                <TextArea
+                  rows={4}
+                  maxLength={800}
+                  showCount
+                  placeholder="Describe more about the campaign and the product to be advertised"
+                />
               </Form.Item>
             </div>
           </div>
@@ -428,7 +422,6 @@ export default function CreateCampaign() {
             </Button>
           </Form.Item>
         </Form>
-        {showAlert && <Alert message={err} type="error" />}
       </div>
     </div>
   );

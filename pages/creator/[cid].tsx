@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-import { NextPage } from "next";
 import { useRouter } from "next/router";
 
 import { BsPlay } from "react-icons/bs";
@@ -25,7 +24,7 @@ import classes from "@/styles/creatorDetail.module.css";
 // antd
 import { Row, Col, Divider, Empty } from "antd";
 
-const CreatorDetail: NextPage = () => {
+const CreatorDetail = () => {
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(true);

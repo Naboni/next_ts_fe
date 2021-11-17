@@ -1,0 +1,19 @@
+/* header */
+.header {
+  padding: var(--main-padding);
+  background-color: var(--main-bg);
+  width: 100%;
+  /* box-shadow: var(--main-box-shadow); */
+}
+.count {
+  background-color: rgb(208, 230, 250);
+  border-radius: 10px;
+  padding: 2px 5px;
+  margin-left: 10px;
+  font-weight: 400;
+}
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+
+}

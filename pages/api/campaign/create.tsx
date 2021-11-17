@@ -47,8 +47,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         campaignDuration,
         campaignGoal,
         campaignName,
-        campaignPrice,
-        campaignPriceType,
+        campaignPrice: campaignPrice ?? "",
+        campaignPriceType: campaignPriceType ?? "",
         contactName,
         email,
         message,
@@ -66,6 +66,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     return res.status(201).json(createdCampaign);
   } catch (error) {
-    res.status(400).send({ success: false, message: "Invalid inputs!", error });
+    console.log(error);
+
+    res.status(400).send({ success: false, message: "Invalid inputs!" });
   }
 };

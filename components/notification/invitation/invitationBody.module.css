@@ -1,0 +1,50 @@
+/* header */
+.header {
+  padding: var(--main-padding);
+  background-color: var(--main-bg);
+  width: 100%;
+}
+
+.headerTop {
+  display: flex;
+  justify-content: space-between;
+}
+
+.companyName {
+  color: #1890ff;
+}
+
+.date {
+  font-size: 12px;
+  font-weight: 400;
+  margin: 0;
+}
+
+.distance {
+  margin-left: 5px;
+  background-color: aliceblue;
+  padding: 2px 7px;
+  border-radius: 5px;
+}
+
+/* campaign details */
+.description {
+  display: flex;
+}
+
+.descriptionBody {
+  width: 50%;
+}
+
+.details {
+  margin-top: 10px;
+}
+
+.details h5 {
+  color: grey;
+  margin: 0;
+}
+
+.details p {
+  margin: 0;
+}

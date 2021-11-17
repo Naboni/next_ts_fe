@@ -1,10 +1,10 @@
 import React from "react";
 import { useSession } from "next-auth/client";
+import { Pv } from "@/constants/roles";
 // components
 import ClaimProfile from "@/components/directory/activity/ClaimProfile";
 // styles
 import classes from "./dashboard.module.css";
-import { Pv } from "@/constants/roles";
 
 export default function Dashboard() {
   const [session, _] = useSession();

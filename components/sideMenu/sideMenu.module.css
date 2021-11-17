@@ -37,3 +37,12 @@
   list-style: none;
   font-size: 1rem;
 }
+
+.count {
+  background-color: #ff4d4f;
+  border-radius: 10px;
+  padding: 2px 5px;
+  margin-left: 10px;
+  font-weight: 400;
+  color: aliceblue;
+}

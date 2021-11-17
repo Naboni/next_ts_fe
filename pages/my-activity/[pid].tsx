@@ -53,6 +53,8 @@ export default function MyActivity() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  console.log("=======================================");
+  
   const session = await getSession(context);
   if (!session || (session.user as any)?.role !== Roles.BRAND) {
     // ! redirecting back to home b/c if a logged in user redirected to signin, it will again redirect to home

@@ -18,7 +18,7 @@ interface IProps {
     createdAt: string;
   };
 }
-export default function CampaignItem({ data }: IProps) {
+export default function CampaignItem({ data }: any) {
   const router = useRouter();
   return (
     <div
