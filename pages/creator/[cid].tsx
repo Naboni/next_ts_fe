@@ -161,7 +161,7 @@ const CreatorDetail = () => {
                         }}
                       />
                     }
-                    value={`${d.engagementRate}%`}
+                    value={`${d.engagementRate * 100}%`}
                   />
                 </div>
               </div>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { getSession } from "next-auth/client";
-// antd
 
 // components
 import CenterContent from "../../components/CenterContent";
@@ -26,7 +25,7 @@ export default function SignInPage() {
   }
 
   return (
-    <div className="marginTop" style={{ backgroundColor: "#fff" }}>
+    <div className="marginTop">
       <CenterContent>
         <SignIn />
       </CenterContent>

@@ -18,7 +18,7 @@ export default function SignUp() {
   // ! Radio state
   const options = [
     { label: "Brand", value: "BRAND" },
-    { label: "CREATOR", value: "CREATOR" },
+    { label: "Creator", value: "CREATOR" },
   ];
   const [value, setValue] = useState("BRAND");
   const onChange = (e: any) => {

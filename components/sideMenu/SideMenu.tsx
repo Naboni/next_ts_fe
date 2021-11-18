@@ -25,12 +25,7 @@ export default function SideMenu({ routes }: IProps) {
           }`}
         >
           <Link href={r.path} shallow={true}>
-            <a className={classes.navlink}>
-              {r.name}
-              {r.length || r.length === 0 ? (
-                <span className={classes.count}>{r.length}</span>
-              ) : null}
-            </a>
+            <a className={classes.navlink}>{r.name}</a>
           </Link>
         </li>
       ))}

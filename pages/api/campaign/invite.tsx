@@ -6,7 +6,7 @@ import { prisma } from "@/lib/prisma";
 
 import { Roles } from "@/constants/roles";
 
-const { campaign, user } = prisma;
+const { campaign, user, invitation } = prisma;
 
 import { mailer } from "@/lib/mailer";
 
@@ -25,10 +25,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   try {
-    var date = new Date();
-    const now = date.toISOString();
-    console.log(now);
-    
     const { creatorId, campaignIds } = req.body;
 
     const creator = await user.findUnique({ where: { id: creatorId } });
@@ -55,57 +51,36 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           .json({ success: false, message: "Campaign not found!" });
       }
 
-      if (!currentCampaign?.pendingInvitations.includes(creatorId)) {
+      const sentBefore = await invitation.findFirst({
+        where: {
+          to: creatorId,
+          campaignId: id,
+        },
+      });
+
+      if (!sentBefore) {
         // ! save company name for invitation email and for user.update
         campaignNamesForInvitation.push({
           companyName: currentCampaign.brandName,
-          campaignId: currentCampaign.id,
         });
         batchUpdates.push(
-          campaign.update({
-            where: {
-              id,
-            },
+          invitation.create({
             data: {
-              pendingInvitations: [
-                ...currentCampaign.pendingInvitations,
-                creatorId,
-              ],
+              brandName: currentCampaign.brandName,
+              campaignId: currentCampaign.id,
+              to: creatorId,
+              userId: auser.id as string,
+              // ! remove this b/c it default
+              read: false,
             },
           })
         );
       }
     }
 
-    let campaignIdWithDetails: any[] = [];
-    if (campaignNamesForInvitation.length > 0) {
-      campaignIdWithDetails = campaignNamesForInvitation.map((el: any) => {
-        return {
-          companyName: el.companyName,
-          campaignId: el.campaignId,
-          createdAt: now,
-        };
-      });
-    }
-
     // ! only write if batchUpdate list is > 0. b/c if empty, the company already invited that person
     if (batchUpdates.length > 0) {
-      await prisma.$transaction([
-        // ! 1. update campaign
-        ...batchUpdates,
-        // ! 2. update user
-        user.update({
-          where: {
-            id: creatorId,
-          },
-          data: {
-            pendingInvitations: [
-              ...creator.pendingInvitations,
-              ...campaignIdWithDetails,
-            ],
-          },
-        }),
-      ]);
+      await prisma.$transaction([...batchUpdates]);
 
       // !!!!!
       // ! the structure of the list changed. so, check before uncomment-ing

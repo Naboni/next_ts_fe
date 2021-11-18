@@ -1,18 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/client";
 
 // styles
 import classes from "./invitations.module.css";
-
+// relative
+import { getInvitations } from "backend-utils/notification-util";
 // components
 import InvitationItem from "@/components/directory/activity/InvitationItem";
+import CenterLoading from "@/components/CenterLoading";
 // antd
-import { List, Empty, Select } from "antd";
+import { List, Empty, Select, message } from "antd";
 const { Option } = Select;
 
 export default function Invitations() {
   const [session, _] = useSession();
   const user = session?.user as any;
+
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState<any[]>();
+
+  useEffect(() => {
+    getInvitations()
+      .then(async (res) => {
+        if (res.ok) {
+          var resp = await res.json();
+          setData(resp.response);
+        } else {
+          message.error("Something went wrong!");
+          setData([]);
+        }
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
   const invitationTypes = [
     "Accepted Invitations",
@@ -25,6 +44,8 @@ export default function Invitations() {
     setInvitationType(value);
   }
 
+  if (loading) return <CenterLoading height="50vh" width="100%" bg="white" />;
+
   return (
     <div>
       <header className={classes.header}>
@@ -32,7 +53,7 @@ export default function Invitations() {
           <h3>
             {invitationTypes[invitationType]}
             <span className={classes.count}>
-              {getCount(invitationType, user)}
+              {getCount(invitationType, data!)}
             </span>
           </h3>
 
@@ -49,60 +70,47 @@ export default function Invitations() {
       </header>
 
       <header className={classes.header} style={{ marginTop: "20px" }}>
-        {user.pendingInvitations.length > 0 ? (
-          <List
-            pagination={{
-              pageSize: 5,
-            }}
-            dataSource={getInvitationData(invitationType, user)}
-            renderItem={(item: any) => (
-              <List.Item>
-                <InvitationItem
-                  companyName={item.companyName}
-                  campaignId={item.campaignId}
-                  createdAt={item.createdAt}
-                />
-              </List.Item>
-            )}
-          />
-        ) : (
-          <Empty
-            description="Invitations will appear here when you get invited to a campaign."
-            style={{
-              color: "grey",
-              height: "50vh",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          />
-        )}
+        <List
+          pagination={{
+            pageSize: 5,
+          }}
+          dataSource={getInvitationData(invitationType, data!)}
+          renderItem={(item: any) => (
+            <List.Item>
+              <InvitationItem
+                companyName={item.brandName}
+                campaignId={item.campaignId}
+                createdAt={item.createdAt}
+              />
+            </List.Item>
+          )}
+        />
       </header>
     </div>
   );
 }
 
-function getCount(invitationType: number, user: any) {
+function getCount(invitationType: number, data: any[]) {
   switch (invitationType) {
     case 0:
-      return user.acceptedInvitations.length;
+      return data.filter((e) => e.status === "ACCEPTED").length;
     case 1:
-      return user.pendingInvitations.length;
+      return data.filter((e) => e.status === "PENDING").length;
     case 2:
-      return user.rejectedInvitations.length;
+      return data.filter((e) => e.status === "REJECTED").length;
     default:
       break;
   }
 }
 
-function getInvitationData(invitationType: number, user: any) {
+function getInvitationData(invitationType: number, data: any) {
   switch (invitationType) {
     case 0:
-      return user.acceptedInvitations;
+      return data.filter((e: any) => e.status === "ACCEPTED");
     case 1:
-      return user.pendingInvitations;
+      return data.filter((e: any) => e.status === "PENDING");
     case 2:
-      return user.rejectedInvitations;
+      return data.filter((e: any) => e.status === "REJECTED");
     default:
       break;
   }

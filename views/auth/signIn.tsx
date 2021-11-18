@@ -25,10 +25,19 @@ export default function signIn() {
       password: values.password,
     })
       .then((data) => {
-        if (data?.error) setErr(data.error);
-        else router.replace("/main");
+        if (data?.error) {
+          if (
+            data?.error
+              .toString()
+              .startsWith("\nInvalid `prisma.user.findUnique()`")
+          ) {
+            setErr("Something went wrong");
+          } else {
+            setErr(data.error);
+          }
+        } else router.replace("/main");
       })
-      .catch((e: any) => setErr(e.message))
+      .catch((e: any) => setErr("Something went wrong"))
       .finally(() => setLoggingIn(false));
   };
 

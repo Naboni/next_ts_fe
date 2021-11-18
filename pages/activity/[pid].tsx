@@ -35,11 +35,9 @@ export default function Activity() {
       path: "/activity/invitation",
       name: "Invitations",
       query: "invitation",
-      length: user.pendingInvitations.length,
     },
   ];
-  console.log("ghjkl");
-  
+
   return (
     <div className="marginTop">
       <CenterContent>
@@ -61,8 +59,6 @@ export default function Activity() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  console.log('hi');
-
   const session = await getSession(context);
   if (!session || (session.user as any)?.role !== Roles.CREATOR) {
     // ! redirecting back to home b/c if a logged in user redirected to sign in, it will again redirect to home

@@ -8,6 +8,7 @@ body {
 }
 :root {
   --main-bg: #fff;
+  --secondary-bg: ##f2f3f7;
   --main-box-shadow: 0 2px 5px 0 rgb(83 128 136 / 4%);
   --main-margin-top: 20px;
   --main-padding: 20px;

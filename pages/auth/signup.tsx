@@ -26,7 +26,7 @@ export default function SignUpPage() {
   }
 
   return (
-    <div className="marginTop" style={{ backgroundColor: "#fff" }}>
+    <div className="marginTop">
       <CenterContent>
         <SignUp />
       </CenterContent>

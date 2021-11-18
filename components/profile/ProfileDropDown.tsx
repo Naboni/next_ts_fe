@@ -32,7 +32,13 @@ export default function ProfileDropDown({ user, logoutHandler }: any) {
     <div>
       <Dropdown overlay={menu} trigger={["hover"]} placement="bottomRight">
         <Button style={{ height: "100%" }} type="text">
-          <Avatar size={35} icon={<UserOutlined />} />{" "}
+          {/* <Avatar size={35} icon={<UserOutlined />} />{" "} */}
+          <img
+            height="35"
+            width="35"
+            src={`https://avatars.dicebear.com/api/initials/${user.username}.svg`}
+            alt=""
+          />
           <span style={{ margin: "0 5px", padding: 0, fontWeight: 500 }}>
             {user.username}
           </span>

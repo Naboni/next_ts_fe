@@ -3,4 +3,9 @@ const getInvitationById = async (id: string) => {
   return response;
 };
 
-export { getInvitationById };
+const getInvitations = async () => {
+  const response = await fetch(`/api/invitation`);
+  return response;
+};
+
+export { getInvitationById, getInvitations };

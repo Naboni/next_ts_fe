@@ -13,6 +13,12 @@ export default function Dashboard() {
     <div>
       <header className={classes.header}>
         <div className={classes.headerName}>
+          <img
+            height="35"
+            width="35"
+            src={`https://avatars.dicebear.com/api/initials/${user.username}.svg`}
+            alt=""
+          />
           <h3>Hi, {user.username}</h3>
         </div>
       </header>
