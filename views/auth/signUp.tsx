@@ -15,6 +15,8 @@ export default function SignUp() {
   const [err, setErr] = useState("");
   const [showAlert, setShowAlert] = useState(false);
 
+  const [passwordLength, setPasswordLength] = useState(0);
+
   // ! Radio state
   const options = [
     { label: "Brand", value: "BRAND" },
@@ -103,8 +105,19 @@ export default function SignUp() {
             name="password"
             rules={[{ required: true, message: "Please input your password!" }]}
           >
-            <Input.Password placeholder="Enter password" />
+            <Input.Password
+              placeholder="Enter password"
+              onChange={(e) => setPasswordLength(e.target.value.length)}
+            />
           </Form.Item>
+
+          <div className={classes.strength}>
+            <span className={`${classes.box } ${passwordLength >= 2 && classes.strong}`}></span>
+            <span className={`${classes.box } ${passwordLength >= 4 && classes.strong}`}></span>
+            <span className={`${classes.box } ${passwordLength >= 6 && classes.strong}`}></span>
+            <span className={`${classes.box } ${passwordLength >= 8 && classes.strong}`}></span>
+          </div>
+
           <Form.Item
             name="confirm"
             label="Confirm Password"
