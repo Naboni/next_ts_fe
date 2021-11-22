@@ -7,6 +7,13 @@ class MyDocument extends Document {
         <Head>
           <link rel="manifest" href="/manifest.json" />
           <link rel="apple-touch-icon" href="/icon.png"></link>
+          <link
+            rel="preload"
+            href="/fonts/Poppins/Poppins-Regular.ttf"
+            as="font"
+            crossOrigin=""
+          />
+          <title>Betopia Creator Marketplace</title>
         </Head>
         <body>
           <Main />

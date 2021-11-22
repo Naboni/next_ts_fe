@@ -9,7 +9,9 @@ import "antd/dist/antd.css";
 
 // components
 import VisitorNavBar from "../components/navBars/visitor/VisitorNavBar";
-import Footer from "../components/footer/Footer";
+import AppFooter from "@/components/footer/Footer";
+import { Layout } from 'antd';
+const { Header, Content, Footer } = Layout;
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -23,12 +25,18 @@ function MyApp({ Component, pageProps }: AppProps) {
         height={3}
         showOnShallow={true}
       />
-      {/* <Provider> allows instances of useSession() to share the session object across components, by using React Context under the hood */}
-      {/* This improves performance, reduces network calls and avoids page flicker when rendering */}
       <Provider session={pageProps.session}>
-        {!router.pathname.startsWith("/auth/") && <VisitorNavBar />}
-        <Component {...pageProps} />
-        {!router.pathname.startsWith("/auth/") && <Footer />}
+        <Layout className="mainLayout">
+          <Header>
+            {!router.pathname.startsWith("/auth/") && <VisitorNavBar />}
+          </Header>
+          <Content>
+            <Component {...pageProps} />
+          </Content>
+          <Footer>
+            {!router.pathname.startsWith("/auth/") && <AppFooter />}
+          </Footer>
+        </Layout>
       </Provider>
     </>
   );

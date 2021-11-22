@@ -1,10 +1,25 @@
+@font-face {
+  font-family: "Poppins";
+  src: url("/fonts/Poppins/Poppins-Regular.ttf");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
 html,
-body {
+/* body {
   padding: 0;
-  margin: 0;
-  min-width: 1900px;
-  font-family: Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
-    Helvetica Neue, sans-serif;
+  margin: 0; */
+  /* min-width: 1900px; */
+  /* font-family: Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
+    Helvetica Neue, sans-serif; */
+/* } */
+body {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+  overflow-x: hidden;
+  /* font-family: "Poppins"; */
 }
 :root {
   --main-bg: #fff;
@@ -59,9 +74,732 @@ a {
 
 .signLayoutLeft h1 {
   font-size: 30px;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 .signLayoutLeft h2 {
   font-size: 30px;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+/* Boni's mess */
+
+.container-fluid {
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 0 15px;
+  font-family: "Poppins";
+}
+
+.ant-layout {
+  background: #f7fafc !important;
+}
+
+.mainLayout .ant-layout-header {
+  background: #eff3f6;
+  padding: 0;
+  height: auto;
+  line-height: 1.6;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.bgGray {
+  background: #fafafa;
+}
+
+.dsection {
+  background-color: #ffdcd2;
+  text-align: center;
+  padding: 0px !important;
+}
+.dsection p {
+  font-size: 14px;
+  padding: 8px 0;
+}
+.dsection-link {
+  font-weight: bold;
+  color: #ff8561;
+}
+
+.titleHolder {
+  text-align: center;
+  position: relative;
+  padding: 0 0 20px;
+  margin: 0 0 40px;
+}
+
+.titleHolder:after {
+  transform: translateX(-50%);
+  content: "";
+  background: #ff8561;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  height: 3px;
+  width: 50px;
+}
+
+.titleHolder h2 {
+  font-size: 40px;
+  font-weight: 600;
+  margin: 10px auto;
+}
+
+.ant-layout-header {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+
+.ant-anchor-wrapper {
+  background: none;
+}
+
+.ant-anchor {
+  display: flex;
+}
+
+.ant-anchor-ink {
+  display: none;
+}
+
+.ant-anchor-link {
+  padding: 0 20px;
+  font-weight: bold;
+  text-transform: capitalize;
+  font-size: 12px;
+  position: relative;
+  color: #000;
+}
+
+.ant-anchor-link-active > .ant-anchor-link-title {
+  color: black;
+}
+.ant-anchor-link-title:after,
+.ant-anchor-link-title:before {
+  color: #954e4d;
+}
+
+.loginLink {
+  color: red;
+}
+
+.header .ant-menu {
+  border: 0;
+  background: none !important;
+}
+
+.header .ant-menu li.ant-menu-item {
+  position: relative;
+  color: #333;
+}
+
+.header .ant-menu li.ant-menu-item:before,
+.header .ant-menu li.ant-menu-item:after {
+  content: "";
+  background: #ff8561;
+  width: 1px;
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  left: 30%;
+  opacity: 0;
+  transition: all 0.3s linear;
+}
+
+.header .ant-menu li.ant-menu-item:after {
+  left: auto;
+  right: 30%;
+}
+
+.header .ant-menu li.ant-menu-item,
+.header .ant-menu li.ant-menu-item-selected {
+  border: 0 !important;
+}
+
+.header .ant-menu li.ant-menu-item-selected,
+.header .ant-menu li.ant-menu-item:hover {
+  color: #ff8561;
+  background: none;
+}
+
+.header .ant-menu li.ant-menu-item-selected:before,
+.header .ant-menu li.ant-menu-item:hover:before {
+  left: 5%;
+  opacity: 1;
+}
+
+.header .ant-menu li.ant-menu-item-selected:after,
+.header .ant-menu li.ant-menu-item:hover:after {
+  right: 5%;
+  opacity: 1;
+}
+
+.heroBlock {
+  /* background-image: linear-gradient(175deg, #eff3f6 70%, #f7fafc 30%); */
+  background-size: cover;
+  padding: 250px 0;
+  background-color: #eff3f6;
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+  height: 85vh;
+}
+
+.heroBlock .container-fluid {
+  display: block !important;
+}
+
+.heroBlock .ant-carousel,
+.heroBlock .ant-carousel div {
+  height: 100%;
+}
+
+.heroBlock .slick-dots li button {
+  background: #000 !important;
+}
+
+.heroBlock .slick-dots li.slick-active button {
+  background: #ff8561 !important;
+}
+
+.heroBlock .content {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 0 0 70px;
+}
+
+.heroBlock h3 {
+  font-size: 40px;
+  line-height: 1.2;
+  margin: 0 0 30px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.heroBlock p {
+  margin: 0 0 30px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.btnHolder {
+  display: flex;
+  justify-content: center;
+}
+
+.heroBlock .btnHolder button,
+.heroBlock .btnHolder .fas {
+  margin: 0 10px 0 0;
+}
+
+.socialMedias {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.btnHolder .btnContainer {
+  margin-bottom: 10px;
+}
+.btnHolder .heroButton1 {
+  background-color: #ff6436;
+  border-radius: 5px;
+  border: 1px solid #ff6436;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  width: 215px;
+  height: 35px;
+}
+
+.btnHolder .heroButton2 {
+  background-color: transparent;
+  border-radius: 5px;
+  border: 1px solid #ff6436;
+  color: #ff6436;
+  font-size: 14px;
+  font-weight: 600;
+  width: 215px;
+  height: 35px;
+}
+
+.block {
+  padding: 60px 0;
+  border-bottom: 1px solid #d9d9d9;
+}
+
+.aboutBlock .contentHolder {
+  text-align: center;
+  margin: 0 0 50px;
+}
+
+.aboutBlock .icon {
+  font-size: 40px;
+  color: #ff8561;
+  margin: 0 0 10px;
+}
+
+.sectionHolder {
+  display: flex;
+  justify-content: space-around;
+}
+
+.aboutBlock .content {
+  text-align: start;
+  background-color: white;
+  margin: 0 10px;
+  border: 1px solid white;
+  border-radius: 10px;
+  padding: 0;
+  width: 90%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.card_text {
+  font-size: 24px;
+  font-weight: bold;
+  padding: 0px 30px;
+}
+.icon {
+  padding: 0px 30px;
+}
+
+.aboutBlock .content p {
+  padding: 0 30px;
+  text-align: start;
+}
+
+.aboutList {
+  padding: 0 30px;
+}
+
+.analyticReport {
+  margin-top: 90px;
+}
+
+.analyticReport .titleHolder {
+  padding-bottom: 1px;
+}
+.analyticReport .titleHolder:after {
+  transform: translateX(-50%);
+  content: "";
+  background: #ff8561;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  height: 4px;
+  width: 170px;
+}
+
+.analyticReport .contentHolder p {
+  width: 80%;
+  margin: 0 auto;
+  font-size: 40px;
+  font-weight: 600;
+}
+
+.analyticReport input[type="text"] {
+  padding: 16px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: 2px solid #434c5d;
+  border-style: solid none solid solid;
+  border-radius: 10px 0 0 10px;
+  width: 70%;
+}
+
+.search-container {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.search-container-link {
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.search-container button {
+  padding: 16px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #434c5d;
+  font-size: 17px;
+  color: white;
+  cursor: pointer;
+  border: 2px solid #434c5d;
+  border-style: solid solid solid none;
+  border-radius: 0 10px 10px 0;
+  width: 25%;
+}
+
+.featureBlock .featureTitle {
+  margin: 50px auto;
+  width: 80%;
+}
+
+.featureTitle h2 {
+  text-align: center;
+
+  font-size: 40px;
+  font-weight: 600;
+}
+
+.featureBlock .featureCard {
+  background-color: #2b3865;
+  height: 220px;
+  border-radius: 8px;
+}
+.featureCardTitle {
+  margin: 10px 10px;
+}
+.featureCardDetail {
+  margin: 10px 10px;
+}
+.featureCardTitle h2 {
+  color: white;
+  font-size: 36px;
+  font-weight: 700;
+}
+.featureCardDetail p {
+  color: #b0c0cf;
+  font-size: 16px;
+}
+.feature_hor_divider {
+  margin: 100px 0;
+  display: flex;
+  justify-content: center;
+}
+.div_img {
+  margin: 0 10px;
+}
+.featureStep {
+  margin: 100px 0;
+}
+.featureBlock .analyticsCard {
+  background-color: transparent;
+  border: none;
+}
+.analyticsCard .analyticsSection {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.analyticsCard .analyticsSection h4 {
+  margin: 10px 10px;
+}
+
+.analyticsCard .analyticsTitle h2 {
+  font-size: 24px;
+  font-weight: 700;
+}
+.analyticsCard .analyticsLink a {
+  color: #ff6436;
+  font-weight: 700;
+  padding-right: 5px;
+}
+.analyticsCard .analyticsLink .linkIcon {
+  color: #ff6436;
+}
+
+.worksBlock {
+  background-color: #2b3865;
+  clip-path: polygon(0% 10%, 100% 0%, 100% 90%, 0% 100%);
+  padding: 250px 0;
+  background-position: 50% 0;
+  background-size: cover;
+  color: #fff;
+  position: relative;
+}
+
+.worksBlock .worksTitle {
+  display: flex;
+  justify-content: center;
+}
+
+.worksTitle h2 {
+  color: white;
+  text-align: center;
+  font-size: 40px;
+  font-weight: 600;
+}
+
+.contentHolder .contentTitle {
+  margin: 50px 0;
+}
+
+.contentHolder .contentTitle h5 {
+  font-size: 16px;
+  text-align: center;
+  border-bottom: 3px solid #954e4d;
+  width: 240px;
+  margin: 0 auto;
+}
+
+.contentTitle h5 {
+  color: white;
+}
+
+.worksBlock .contentHolder button {
+  font-size: 40px;
+  line-height: 1;
+  background: none;
+  border: 1px solid #fff;
+  color: #fff;
+  padding: 30px;
+  border-radius: 50%;
+  width: 110px;
+  height: 110px;
+}
+
+.worksBlock .worksTitle {
+  text-align: center;
+  position: relative;
+  padding: 50px 0;
+  margin: 0 100px 60px;
+}
+.worksBlock .worksTitle h2 {
+  font-size: 36px;
+}
+
+.worksBlock .pressCard {
+  background-color: transparent;
+  border: none;
+}
+
+.pressCardTitle {
+  width: 100px;
+  height: auto;
+}
+
+.pressCardImg {
+  color: white;
+}
+
+.pressCardDetail {
+  color: white;
+}
+
+.pressCardDate {
+  color: rgb(189, 186, 186);
+  font-size: 14px;
+}
+.pressCardContent {
+  font-size: 14px;
+}
+
+.joinBlock .joinTitle {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+.joinTitle h2 {
+  margin-top: 200px;
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.joinBlock .joinCardAction {
+  background-color: #eff3f6;
+  border-radius: 5px;
+}
+.joinBlock .joinCardAccount {
+  background-color: #2b3865;
+  border-radius: 5px;
+}
+.joinCardTitle {
+  margin-top: 50px;
+}
+.joinCardTitle h2 {
+  font-size: 30px;
+  text-align: center;
+}
+.joinCardDetail p {
+  font-size: 18px;
+  text-align: center;
+  margin: 50px 0;
+}
+.joinCardAccount .joinCardTitle h2 {
+  color: white;
+}
+.joinCardAccount .joinCardDetail p {
+  color: white;
+}
+
+.joinCardButton {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.pricingBlock .ant-list {
+  text-align: center;
+}
+
+.pricingBlock .ant-row > div:nth-child(2) .ant-list-item {
+  box-shadow: 0 0 12px 2px #f3f3f3;
+  transform: scale(1.1);
+  position: relative;
+  z-index: 1;
+}
+
+.pricingBlock .ant-card-head-title {
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.pricingBlock .large {
+  font-size: 38px;
+  line-height: 1;
+  margin: 0 0 20px;
+}
+
+.pricingBlock .fab {
+  margin: 0 10px 0 0;
+}
+
+.contactBlock .ant-form {
+  max-width: 640px;
+  margin: auto;
+}
+
+.contactBlock .ant-form textarea {
+  min-height: 120px;
+  height: 120px;
+}
+
+.ant-layout-footer {
+  background: #f7fafc !important;
+  color: black !important;
+  padding: 60px 0 !important;
+}
+
+@media only screen and (max-width: 991px) {
+  .pricingBlock .ant-row > div:nth-child(2) .ant-list-item {
+    transform: scale(1.14);
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .pricingBlock .ant-row > div:nth-child(2) .ant-list-item {
+    transform: scale(1);
+  }
+  .header {
+    justify-content: space-between;
+    margin: 0 10px;
+  }
+  .worksBlock {
+    clip-path: polygon(0% 5%, 100% 0%, 100% 95%, 0% 100%);
+    padding: 200px 0;
+  }
+}
+@media only screen and (max-width: 570px) {
+  .heroBlock {
+    height: 60vh;
+  }
+  .heroBlock .content {
+    padding: 0;
+  }
+  .analyticReport input[type="text"] {
+    font-size: 12px;
+    border: 2px solid #434c5d;
+    border-style: solid none solid solid;
+    border-radius: 10px 0 0 10px;
+    width: 60%;
+  }
+
+  .search-container {
+    width: 100%;
+  }
+
+  .search-container .search-form {
+    display: flex;
+    justify-content: center;
+  }
+
+  .search-container-link {
+    width: 95%;
+  }
+
+  .search-container button {
+    background: #434c5d;
+    font-size: 12px;
+    color: white;
+    cursor: pointer;
+    border: 2px solid #434c5d;
+    border-style: solid solid solid none;
+    border-radius: 0 10px 10px 0;
+    width: 25%;
+  }
+  .heroBlock {
+    padding-top: 150px;
+  }
+
+  .heroBlock p {
+    font-size: 12px;
+  }
+  .heroBlock h3 {
+    font-size: 20px;
+  }
+  .btnHolder {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  .titleHolder h2 {
+    font-size: 20px;
+    line-height: 1.2;
+  }
+
+  .card_text {
+    font-size: 20px;
+  }
+  .aboutBlock .icon {
+    font-size: 30px;
+  }
+
+  .aboutList ul {
+    list-style: square;
+    text-align: start;
+  }
+
+  .analyticReport .contentHolder p {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .featureTitle h2 {
+    font-size: 20px;
+  }
+
+  .worksBlock .worksTitle h2 {
+    font-size: 20px;
+  }
+  .worksBlock .worksTitle {
+    padding: 50px 0;
+    margin: 0 0 60px;
+  }
+  .joinTitle h2 {
+    font-size: 20px;
+  }
+  .joinCardTitle h2 {
+    font-size: 20px;
+  }
+  .joinCardDetail p {
+    font-size: 14px;
+  }
+  .worksBlock {
+    clip-path: polygon(0% 2%, 100% 0%, 100% 98%, 0% 100%);
+    padding: 150px 0;
+  }
 }

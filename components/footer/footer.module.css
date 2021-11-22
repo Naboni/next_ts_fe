@@ -1,11 +1,43 @@
-.footer {
-  height: 200px;
-  width: 100%;
+.footerTitle {
+  margin-bottom: 30px;
+  color: #7e848b;
 }
-.logo {
-  margin-right: 5%;
-  font-weight: 900;
-  font-size: large;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  padding-top: 7px;
+.footerList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.footerList li {
+  font-size: 16px;
+  padding-bottom: 10px;
+}
+
+.footer .goTop:hover {
+  opacity: 0.7;
+}
+
+.linkBottom {
+  font-size: 14px;
+  text-decoration: none;
+  color: #545455;
+}
+.linkBottom:hover {
+  color: #ff6436;
+}
+
+@media only screen and (max-width: 570px) {
+  .footerTitle {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .footerList li {
+    font-size: 14px;
+  }
+  .footerHeader {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+  }
 }
