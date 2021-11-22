@@ -41,3 +41,27 @@ a {
 .CANCELED {
   background-color: rgb(255, 0, 128);
 }
+
+/* global style for sign-- pages */
+.signLayout {
+  display: flex;
+  margin: 0;
+}
+.signLayoutLeft {
+  height: 100vh;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.signLayoutLeft h1 {
+  font-size: 30px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.signLayoutLeft h2 {
+  font-size: 30px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}

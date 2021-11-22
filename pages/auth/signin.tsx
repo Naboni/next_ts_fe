@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { getSession } from "next-auth/client";
 
+import Image from "next/image";
+
+import SignSvg from "public/svg/sign.svg";
+
 // components
-import CenterContent from "../../components/CenterContent";
 import CenterLoading from "../../components/CenterLoading";
 // views
 import SignIn from "../../views/auth/signIn";
@@ -25,10 +28,15 @@ export default function SignInPage() {
   }
 
   return (
-    <div className="marginTop">
-      <CenterContent>
+    <div className="signLayout">
+      <div className="signLayoutLeft">
+        <Image src={SignSvg} />
+        <h1>BETOPIA</h1>
+        <h2>CREATOR MARKETPLACE</h2>
+      </div>
+      <div className="marginTop" style={{ width: "100%" }}>
         <SignIn />
-      </CenterContent>
+      </div>
     </div>
   );
 }

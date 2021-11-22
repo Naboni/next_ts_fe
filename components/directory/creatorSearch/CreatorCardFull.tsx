@@ -52,14 +52,14 @@ export default function CreatorCard({ item }: IProps) {
           <img
             className={classes.avatarImg}
             alt="profile"
-            src="https://www.irishtimes.com/polopoly_fs/1.4026833.1569190266!/image/image.jpg_gen/derivatives/box_620_330/image.jpg"
+            src={`https://avatars.dicebear.com/api/initials/${item.name}.svg`}
           />
         </div>
         <div className={classes.header}>
           <img
             style={{ width: "100%" }}
             alt="profile picture"
-            src="https://www.irishtimes.com/polopoly_fs/1.4026833.1569190266!/image/image.jpg_gen/derivatives/box_620_330/image.jpg"
+            src={`https://avatars.dicebear.com/api/human/${item.name}.svg`}
           />
         </div>
         {/* body of card */}

@@ -27,8 +27,8 @@ function MyApp({ Component, pageProps }: AppProps) {
       {/* This improves performance, reduces network calls and avoids page flicker when rendering */}
       <Provider session={pageProps.session}>
         {!router.pathname.startsWith("/auth/") && <VisitorNavBar />}
-        <Component {...pageProps} />;
-        <Footer />
+        <Component {...pageProps} />
+        {!router.pathname.startsWith("/auth/") && <Footer />}
       </Provider>
     </>
   );

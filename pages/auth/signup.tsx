@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { getSession } from "next-auth/client";
-// antd
+
+import Image from "next/image";
 
 // components
-import CenterContent from "../../components/CenterContent";
 import CenterLoading from "../../components/CenterLoading";
 
 // views
 import SignUp from "../../views/auth/signUp";
+
+import SignSvg from "public/svg/sign.svg";
+
 export default function SignUpPage() {
   // !redirect if session exists
   const [isLoading, setIsLoading] = useState(true);
@@ -26,10 +29,15 @@ export default function SignUpPage() {
   }
 
   return (
-    <div className="marginTop">
-      <CenterContent>
+    <div className="signLayout">
+      <div className="signLayoutLeft">
+        <Image src={SignSvg} />
+        <h1>BETOPIA</h1>
+        <h2>CREATOR MARKETPLACE</h2>
+      </div>
+      <div className="marginTop" style={{ width: "100%" }}>
         <SignUp />
-      </CenterContent>
+      </div>
     </div>
   );
 }
