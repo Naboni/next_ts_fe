@@ -3,7 +3,7 @@ import { prisma } from "../../../lib/prisma";
 import { hashPassword } from "../../../lib/auth";
 import { Roles } from "../../../constants/roles";
 
-const { user } = prisma;
+const { user, referal } = prisma;
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== "POST") {
@@ -13,7 +13,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   try {
-    const { username, email, password, role } = req.body;
+    const { username, email, password, role, referrer } = req.body;
 
     // ! Validate username
     let username_not_taken = await checkDuplicateUsername(username);
@@ -38,22 +38,39 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         message: "Bad Request.",
       });
     }
-    user
-      .create({
-        data: {
-          username,
-          email,
-          password: await hashPassword(password),
-          role,
+
+    const referralLink = referrer as string;
+
+    const newUser = await user.create({
+      data: {
+        username,
+        email,
+        password: await hashPassword(password),
+        role,
+      },
+    });
+
+    if (referralLink !== "") {
+      const referrerUser = await user.findUnique({
+        where: {
+          username: getUsernameFromReferralLink(referralLink),
         },
-      })
-      .then((user) => {
-        return res.status(201).json({
-          message: "Registration successful.",
-          success: true,
-          user,
-        });
       });
+
+      if (referrerUser) {
+        const ref = await referal.create({
+          data: {
+            referedId: newUser.id,
+            referrerId: referrerUser.id,
+          },
+        });
+      }
+    }
+
+    res.status(201).json({
+      message: "Registration successful.",
+      success: true,
+    });
   } catch (error) {
     res.status(400).send({ message: "Invalid inputs!", error });
   }
@@ -74,4 +91,17 @@ const checkDuplicateEmail = async (email: string) => {
     },
   });
   return res ? false : true;
+};
+
+const getUsernameFromReferralLink = (referralLink: string) => {
+  const removedFirstSalt = referralLink.substring(10);
+  const username = reverseString(reverseString(removedFirstSalt).substring(10));
+  return username;
+};
+
+const reverseString = (str: string) => {
+  const strArray = str.split("");
+  const reversedArray = strArray.reverse();
+  const reversedString = reversedArray.join("");
+  return reversedString;
 };

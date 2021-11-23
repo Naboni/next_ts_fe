@@ -3,6 +3,7 @@ import { useSession } from "next-auth/client";
 import { Pv } from "@/constants/roles";
 // components
 import ClaimProfile from "@/components/directory/activity/ClaimProfile";
+import InviteFriends from "@/components/directory/activity/InviteFriends";
 // styles
 import classes from "./dashboard.module.css";
 
@@ -28,6 +29,8 @@ export default function Dashboard() {
             <ClaimProfile />
           </header>
         )}
+
+      <InviteFriends />
     </div>
   );
 }

@@ -19,10 +19,10 @@ export default function SignUp() {
 
   // ! Radio state
   const options = [
-    { label: "Brand", value: "BRAND" },
+    // { label: "Brand", value: "BRAND" },
     { label: "Creator", value: "CREATOR" },
   ];
-  const [value, setValue] = useState("BRAND");
+  const [value, setValue] = useState("CREATOR");
   const onChange = (e: any) => {
     setValue(e.target.value);
   };
@@ -31,7 +31,13 @@ export default function SignUp() {
     setLoggingIn(true);
     setErr("");
     setShowAlert(false);
-    signup(values.username, values.password, values.email, value)
+    signup(
+      values.username,
+      values.password,
+      values.email,
+      value,
+      (router.query.referrer as string) ?? ""
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -112,10 +118,26 @@ export default function SignUp() {
           </Form.Item>
 
           <div className={classes.strength}>
-            <span className={`${classes.box } ${passwordLength >= 2 && classes.strong}`}></span>
-            <span className={`${classes.box } ${passwordLength >= 4 && classes.strong}`}></span>
-            <span className={`${classes.box } ${passwordLength >= 6 && classes.strong}`}></span>
-            <span className={`${classes.box } ${passwordLength >= 8 && classes.strong}`}></span>
+            <span
+              className={`${classes.box} ${
+                passwordLength >= 2 && classes.strong
+              }`}
+            ></span>
+            <span
+              className={`${classes.box} ${
+                passwordLength >= 4 && classes.strong
+              }`}
+            ></span>
+            <span
+              className={`${classes.box} ${
+                passwordLength >= 6 && classes.strong
+              }`}
+            ></span>
+            <span
+              className={`${classes.box} ${
+                passwordLength >= 8 && classes.strong
+              }`}
+            ></span>
           </div>
 
           <Form.Item
