@@ -21,6 +21,7 @@ model User {
   invitation Invitation[]
   campaigns  Campaign[]
   claims     Claim[]
+  referals   Referal[]
   profile    Profile?     @relation("profile")
 
   @@map("user")
@@ -168,4 +169,18 @@ enum InvitationStatus {
   PENDING
   ACCEPTED
   REJECTED
+}
+
+model Referal {
+  id String @id @default(uuid())
+
+  referedId String  @unique
+  isNotFake Boolean @default(false)
+
+  referrerId String
+  user       User   @relation(fields: [referrerId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@map("referal")
 }

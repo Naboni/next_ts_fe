@@ -2,7 +2,8 @@ const signup = async (
   username: string,
   password: string,
   email: string,
-  role: string
+  role: string,
+  referrer: string
 ) => {
   const response = await fetch(`/api/auth/signup`, {
     method: "POST",
@@ -12,6 +13,7 @@ const signup = async (
       password,
       email,
       role,
+      referrer,
     }),
   });
   return response;
@@ -20,6 +22,5 @@ const signup = async (
 // ! signIn inside [...nextauth].tsx
 
 export { signup };
-
 
 // ! everything related with auth
