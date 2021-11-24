@@ -62,17 +62,16 @@ export default function VisitorNavBar() {
 
   return (
     <header className={classes.navbar}>
-      <h1 className={classes.logo} onClick={() => router.push("/")}>
-        DIGITAL
-      </h1>
+      <Link href='/'>
+        <a className={classes.navlogo}>BETOPIA DIGITAL</a>
+      </Link>
       {session && (session.user as User).role === Roles.BRAND && (
         <nav className={classes.menu}>
           {brandRoutes.map((r, i) => (
             <li
               key={r.path}
-              className={`${classes.navitem} ${
-                router.pathname.startsWith(r.path) && classes.activeNavitem
-              }`}
+              className={`${classes.navitem} ${router.pathname.startsWith(r.path) && classes.activeNavitem
+                }`}
             >
               <Link href={`${r.path}${i === 0 ? "/dashboard" : ""}`}>
                 <a className={classes.navlink}>{r.name}</a>
@@ -87,9 +86,8 @@ export default function VisitorNavBar() {
           {creatorRoutes.map((r, i) => (
             <li
               key={r.path}
-              className={`${classes.navitem} ${
-                router.pathname.startsWith(r.href) && classes.activeNavitem
-              }`}
+              className={`${classes.navitem} ${router.pathname.startsWith(r.href) && classes.activeNavitem
+                }`}
             >
               <Link href={`${r.path}${i === 0 ? "/dashboard" : ""}`}>
                 <a className={classes.navlink}>{r.name}</a>
@@ -104,9 +102,8 @@ export default function VisitorNavBar() {
           {adminRoutes.map((r, i) => (
             <li
               key={r.path}
-              className={`${classes.navitem} ${
-                router.pathname === r.path && classes.activeNavitem
-              }`}
+              className={`${classes.navitem} ${router.pathname === r.path && classes.activeNavitem
+                }`}
             >
               <Link href={`${r.path}`}>
                 <a className={classes.navlink}>{r.name}</a>
@@ -146,15 +143,17 @@ export default function VisitorNavBar() {
               className={classes.createCampaign}
               onClick={() => router.push("/auth/signin")}
             >
-              Log in
+              LOG IN
             </Button>
             <Button
               type="primary"
               danger
+              shape="round"
+              size="large"
               className={classes.createCampaign}
               onClick={() => router.push("/auth/signup")}
             >
-              Sign up
+              GET STARTED
             </Button>
           </>
         )}
