@@ -21,6 +21,23 @@ const signup = async (
 
 // ! signIn inside [...nextauth].tsx
 
-export { signup };
 
 // ! everything related with auth
+
+const changePassword = async (
+  newPassword: string,
+  oldPassword: string
+  ) => {
+    const response = await fetch(`/api/auth/change-password`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        newPassword,
+        oldPassword
+      })
+      
+    });
+    return response;
+};
+    
+export { signup, changePassword };

@@ -25,7 +25,11 @@ export default function Activity() {
 
   const router = useRouter();
   const routes = [
-    { path: "/activity/dashboard", name: "Dashboard", query: "dashboard" },
+    {
+      path: "/activity/dashboard",
+      name: "Dashboard",
+      query: "dashboard"
+    },
     {
       path: "/activity/campaign-management",
       name: "Campaign Management",

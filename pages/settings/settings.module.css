@@ -1,0 +1,27 @@
+.header {
+  padding: var(--main-padding);
+  background-color: var(--main-bg);
+  width: 100%;
+}
+
+.tabs {
+  background-color: white;
+  padding: 20px 0;
+}
+
+.tabElement {
+  padding: 10px 20px;
+}
+
+.tabElement:hover {
+  color: #ff6436;
+  cursor: pointer;
+}
+
+.tabElement:active {
+  color: #ff6436;
+}
+
+.centerText {
+  text-align: center;
+}

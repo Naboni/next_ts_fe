@@ -20,9 +20,8 @@ export default function SideMenu({ routes }: IProps) {
       {routes.map((r) => (
         <li
           key={r.path}
-          className={`${classes.navitem} ${
-            router.query["pid"] === r.query && classes.activeNavitem
-          }`}
+          className={`${classes.navitem} ${router.query["pid"] === r.query && classes.activeNavitem
+            }`}
         >
           <Link href={r.path} shallow={true}>
             <a className={classes.navlink}>{r.name}</a>

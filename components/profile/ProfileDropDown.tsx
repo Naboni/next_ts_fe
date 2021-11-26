@@ -14,12 +14,13 @@ export default function ProfileDropDown({ user, logoutHandler }: any) {
 
   function handleMenuClick(e: any) {
     if (e.key == 1) {
-      router.push("/settings");
+      router.push("/settings/manage-account");
     }
     if (e.key == 5) {
       logoutHandler();
     }
   }
+
 
   const menu = (
     <Menu onClick={handleMenuClick}>
